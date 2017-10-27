@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>协议测试</title>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+		$.ajaxSetup({
+			data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+		  });
+	</script>
+</head>
+<style type="text/css">
+    .mypanel .panel-heading{}
+    .mypanel{position: relative;display: none;}
+    .opr-btn{position: absolute;right: 200px;}
+    .navbar-btn{margin-top:2px;margin-bottom:8px;}
+</style>
+<body>
+
+<div id="panel-login">   
+	<div class="panel panel-default mypanel" style="display:block">
+		<div class="panel-heading">
+				登录
+		</div>
+		<div class="panel-body" style="padding-top:1px;">
+			<nav class="navbar navbar-default" >
+				<div class="container-fluid" style="padding-left:0px;padding-bottom:0px;">
+			        <div class="navbar-form navbar-left" style="padding-left: 0px;">
+
+						<ul class="nav navbar-nav">
+							<li class="dropdown" style="width:82px;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" ><span class="rec_option">POST</span> <b class="caret"></b></a>
+								<ul class="dropdown-menu selectBox">
+									<li><a id="action-post" href="#">POST</a></li>
+								</ul>
+							</li>
+						</ul>
+						
+			            <div class="form-group">
+
+			                <input type="text" id="inputurl" class="inputurl" value="http://192.168.5.252:31800/api/trade/ptjy/ptyw/login" style="width: 626px;margin-top:11px;"> 
+			                <button type="button" class="btn btn-default" onclick="btn_login(this)" style="margin-top:0px;">login</button>
+			            </div>
+			           
+			        </div>
+				</div>
+				<div id="collapseFour" class="panel-collapse collapse" style="display: block;">
+					<div class="panel-body" style="padding-top:0px;padding-left:0px; padding-bottom:0px">
+						<textarea rows="10" cols="150" id="myPostData" class="myPostData" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
+					</div>
+				</div>
+			</nav>
+			Response
+			<nav class="navbar navbar-default">
+				<div class="container-fluid" style="padding-left: 0px;">
+				    <textarea rows="10" cols="150" id="myResponse" class="myResponse" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
+				</div>
+			</nav>	
+		</div>
+	</div>
+</div>
+
+<div id="panel-box">   
+<div class="panel panel-default mypanel">
+    <span class="opr-btn">   
+        <button type="button" class="btn btn-default navbar-btn" onclick="btn_add()">+</button>
+        <button type="button" class="btn btn-default navbar-btn" onclick="btn_sub(this)">-</button>
+    </span>
+	<div class="panel-heading">
+			标题
+	</div>
+	<div class="panel-body" style="padding-top:1px;">
+		<nav class="navbar navbar-default" >
+			<div class="container-fluid" style="padding-left:0px;padding-bottom:0px;">
+		        <div class="navbar-form navbar-left" style="padding-left: 0px;">
+
+					<ul class="nav navbar-nav">
+						<li class="dropdown" style="width:82px;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" ><span class="rec_option">GET</span> <b class="caret"></b></a>
+							<ul class="dropdown-menu selectBox">
+								<li><a id="action-get" href="#">GET</a></li>
+								<li class="divider"></li>
+								<li><a id="action-post" href="#">POST</a></li>
+							</ul>
+						</li>
+					</ul>
+					
+		            <div class="form-group">
+
+		                <input type="text" id="inputurl" class="inputurl" placeholder="Enter request URL" style="width: 626px;margin-top:11px;"> 
+		                <button type="button" class="btn btn-default" onclick="btn_send(this)" style="margin-top:0px;">Send</button>
+		            </div>
+		           
+		        </div>
+			</div>
+			<div id="collapseFour" class="panel-collapse collapse">
+				<div class="panel-body" style="padding-top:0px;padding-left:0px; padding-bottom:0px">
+					<textarea rows="10" cols="150" id="myPostData" class="myPostData" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
+				</div>
+			</div>
+		</nav>
+		Response
+		<nav class="navbar navbar-default">
+			<div class="container-fluid" style="padding-left: 0px;">
+			    <textarea rows="10" cols="150" id="myResponse" class="myResponse" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
+			</div>
+		</nav>	
+	</div>
+</div>
+	</div>
+
+<script type="text/javascript">
+	(function(){
+	    /*初加载*/
+	    btn_add();
+	})();
+	/*添加一个panel*/
+	function btn_add(){
+	    var $panel_clone = $('#panel-box>:first').clone(true);
+	    $panel_clone.show();
+	    var $f_box  = $('#panel-box');
+	    $f_box.append($panel_clone);
+	}
+	/*删除当前panel*/
+	function btn_sub(dom){
+	   $(dom).parent().parent().remove();
+	}
+
+	function btn_login(dom) {
+		// alert("abc");
+		var $this = $(dom);
+		var $p5 = $this.parent().parent().parent().parent().parent();
+		var method = $p5.find(".rec_option").text();
+		var inputurl = $p5.find(".inputurl").val();
+		var postdata = $p5.find(".myPostData").val();
+		var responsedata = $p5.find(".myResponse");
+		$.post('/login/', {'inputurl': inputurl, 'method':method, 'postdata':postdata}, function(res){
+			responsedata.val(res);
+		});
+	}
+
+	// 发送get或post数据，传入底层统一用get
+	function btn_send(dom) {
+		// alert("abc");
+		var $this = $(dom);
+		var $p5 = $this.parent().parent().parent().parent().parent();
+		var method = $p5.find(".rec_option").text();
+		var inputurl = $p5.find(".inputurl").val();
+		var postdata = $p5.find(".myPostData").val();
+		var responsedata = $p5.find(".myResponse");
+		$.post('/send/', {'inputurl': inputurl, 'method':method, 'postdata':postdata}, function(res){
+			responsedata.val(res);
+		});
+	}
+
+	$(".selectBox").click(function(e){
+	var tagName = e.target.tagName;
+	var $this = $(e.target);
+	if(tagName == 'A') {
+		// 根据选择重写菜单栏
+		e.preventDefault();
+		var rec_option = $this.text();
+		var $show_dom = $(this).prev().find(".rec_option");
+		console.log("before text: " + $show_dom.text());
+		$show_dom.text(rec_option);
+
+		// 根据选择的是否为POST决定是否显示PostData输入项
+		var myparent = $(this).parent().parent().parent().parent().parent();
+		console.log(myparent);
+		var postDataParent = myparent.find(".collapse");
+		if($this.text() == "GET") {
+			postDataParent.collapse('hide');
+		}
+		else {
+			postDataParent.collapse('show');
+		}
+	}
+});
+</script>
+</body>
+</html>
