@@ -2,9 +2,15 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from web_json import WebJson
 from account_info import AccountInfo
+from json_conf import JsonConf
+from django.conf import settings
+import json
 
 def index(request):
-    return render(request, 'index.html')
+    print(settings.INIT_DATA)
+    json_data = JsonConf.load(settings.INIT_DATA)
+    # json_data = {'site': '自强学堂', 'author': '涂伟忠'}
+    return render(request, 'index.html', {'Dict': json.dumps(json_data)})
 
 def send(request):
     """

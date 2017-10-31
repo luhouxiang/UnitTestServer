@@ -16,6 +16,7 @@
 
 from urllib.request import urlopen
 import json
+import ssl
 
 class WebJson(object):
     def __init__(self):
@@ -23,6 +24,7 @@ class WebJson(object):
 
     @classmethod
     def get_url_json(cls, url, data):
+        ssl._create_default_https_context = ssl._create_unverified_context # 解决https的认证问题
         web = urlopen(url, data)
         print(web.url)
         print("status: ", web.status)
@@ -37,6 +39,11 @@ class WebJson(object):
 
     @classmethod
     def get_url_data(cls, url, data):
+        """
+        :param url:
+        :param data:
+        :return:
+        """
         json_data = cls.get_url_json(url, data)
         json_text = cls.parse_json(json_data)
         print(json_text)
