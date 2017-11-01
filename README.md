@@ -8,3 +8,14 @@ python -m django --version
 django-admin startproject UnitTestServer
 cd UnitTestServer
 python manage.py startapp autotrade
+
+# 完成内容：
+v0.01 读取json配置文件（此json文件兼容postman导出的配置文件），生成访问列表。
+
+# 计划
+生成一张规则配置表，在基础配置的基础上完成关联测试。
+关联规则是个难点，还要构思中
+
+
+
+
