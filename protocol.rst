@@ -15,7 +15,7 @@
 identifier       用户标识符         string      Y          客户号
 appType          手机类型           string      Y    
 orderChannel     渠道号             string      Y
-orderType        订阅类型           string      Y          1:订阅，2：暂停，3：修改，4：恢复
+orderType        订阅类型           string      Y          1:订阅，2：暂停，3：修改，4：恢复，0: 终止
 serviceId        服务类型           string      Y          8002：表示国债逆回购
 yybdm            营业部代码         string      Y          
 lhxx             留痕信息           string      Y          auto.***
@@ -132,8 +132,7 @@ stockCode        代码               string
  {
   "identifier" : "101500000010",
   "serviceId" : "8002",
-  "type" : "1",
-  "orderId":"26"
+  "type" : "1"
  }
 
 
