@@ -16,6 +16,7 @@ identifier       用户标识符         string      Y          客户号
 appType          手机类型           string      Y    
 orderChannel     渠道号             string      Y
 orderType        订阅类型           string      Y          1:订阅，2：暂停，3：修改，4：恢复，0: 终止
+orderId          订阅Id             string      Y          订阅Id,在查询时返回，用于暂停，恢复，终止
 serviceId        服务类型           string      Y          8002：表示国债逆回购
 yybdm            营业部代码         string      Y          
 lhxx             留痕信息           string      Y          auto.***
@@ -148,7 +149,7 @@ stockCode        代码               string
               "status": "1",
               "stockCode": "131811",
               "stockName": "R－002",
-              "discription": "一天期",
+              "stockExplain": "一天期",
               "price" : "0.01",
               "orderAmount" : "10000.00",
               "buyCount": "0",
@@ -164,11 +165,11 @@ stockCode        代码               string
             "status": "1",
             "stockCode": "131812",
             "stockName": "R－003"，
-            "discription": "一天期",
+            "stockExplain": "一天期",
             "price" : "0.01",
             "orderAmount" : "10000.00",
             "buyCount": "0",
-            "successRate":"0.3",
+            "buyOkRate":"0.3",
             "orderStartTime" : "14:30:00",
             "orderEndTime" : "22:00:00",
             "endDate" : "2017-11-30"
