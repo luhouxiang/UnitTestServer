@@ -138,13 +138,21 @@ type             查询类型           string      Y         �
     "code": "0",
     "message": "ok",
     "order": [
-        {
-            "price": "0.01",
-            "publishTime": "2017-11-14",
-            "status": "1",
-            "stockCode": "131811",
-            "stockName": "R－002",
-            "discription": "一天期"
+          {
+              "price": "0.01",
+              "publishTime": "2017-11-14",
+              "status": "1",
+              "stockCode": "131811",
+              "stockName": "R－002",
+              "discription": "一天期",
+              "price" : "0.01",
+              "orderAmount" : "10000.00",
+              "buyCount": "0",
+              "successRate":"0.3",
+              "orderStartTime" : "14:30:00",
+              "orderEndTime" : "22:00:00",
+              "endDate" : "2017-11-30"
+
         },
         {
             "price": "0.01",
@@ -152,7 +160,14 @@ type             查询类型           string      Y         �
             "status": "1",
             "stockCode": "131812",
             "stockName": "R－003"，
-            "discription": "一天期"
+            "discription": "一天期",
+            "price" : "0.01",
+            "orderAmount" : "10000.00",
+            "buyCount": "0",
+            "successRate":"0.3",
+            "orderStartTime" : "14:30:00",
+            "orderEndTime" : "22:00:00",
+            "endDate" : "2017-11-30"
         }
     ],
     "orderId": "26",
