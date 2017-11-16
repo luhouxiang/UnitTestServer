@@ -30,12 +30,12 @@ orderEndTime     结束时段           string                 22:00:00
 stockCode        代码              string                
 stockName        名称              string
 discription      中文说明          string
-price            利率              string
+price            利率              string                  0.03
 orderAmount      金额              string
 endDate          截止日期           string                 2017-11-14
 ===============  ================  ==========  =====  ===========================================
 
-* 定制
+* 定制,修改（orderType:1,3）
 ::
  
  http://172.16.239.239:21800/api/autotrade/reverse_order
@@ -65,46 +65,46 @@ endDate          截止日期           string                 2017-11
    ]
 }
 
+* 暂停, 恢复, 终止（orderType:2, 4, 0）
+::
+
+ {
+  "identifier" : "101500000010",
+  "orderType" : "2",
+  "serviceId" : "8002",
+  "lhxx" : "auto.lhxx",
+  "orderId":"26",
+  "order" : [
+    {
+       "stockCode" : "131810",
+       "marketId" : "0"
+    }
+  ]
+ }
+
+* 数据返回
+::
+
+ {
+     "code": "-1",
+     "message": "入参错误,请重新操作"
+ }
+ {
+     "code": "0",
+     "message": "终止成功"
+ }
+ {
+    "code": "0",
+    "message": "暂停成功"
+ }
+ {
+    "code": "0",
+    "message": "启动成功"
+ }
+ {
+    "code": "0",
+    "message": "预约成功"
+ }
 
 
-
-
-********
-Features
-********
-
-* hierarchical pages
-* extensive built-in support for multilingual websites
-* multi-site support
-* draft/publish workflows
-* version control
-* a sophisticated publishing architecture, that's also usable in your own applications
-* frontend content editing
-* a hierarchical content structure for nested plugins
-* an extensible navigation system that your own applications can hook into
-* SEO-friendly URLs
-* designed to integrate thoroughly into other applications
-
-
-***********
-Quick Start
-***********
-
-You can use the `django CMS installer <https://djangocms-installer.readthedocs.io>`_::
-
-    $ pip install --upgrade virtualenv
-    $ virtualenv env
-    $ source env/bin/activate
-    (env) $ pip install djangocms-installer
-    (env) $ mkdir myproject && cd myproject
-    (env) $ djangocms -f -p . my_demo
-    (env) $ python manage.py
-
-
-************
-Getting Help
-************
-
-Please head over to our IRC channel, #django-cms, on irc.freenode.net or write
-to our `mailing list <https://groups.google.com/forum/#!forum/django-cms>`_.
 
