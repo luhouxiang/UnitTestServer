@@ -6,7 +6,7 @@
 1、智能逆回购定制
 ********
 * 请求方式: post
-* URL：http://192.168.5.252:31800/api/autotrade/order
+* URL：http://172.16.239.239:21800/api/autotrade/order
 * 参数说明
 
 ===============  ================  ==========  =====  ===========================================
@@ -27,11 +27,11 @@ marketId         市场代码           string
 orderDate        订阅日期           string                 2017-11-14
 orderStartTime   开始时段           string                 14:30:00
 orderEndTime     结束时段           string                 22:00:00
-stockCode        代码              string                
-stockName        名称              string
-discription      中文说明          string
-price            利率              string                  0.03
-orderAmount      金额              string
+stockCode        代码               string                
+stockName        名称               string
+discription      中文说明           string
+price            利率               string                 0.03
+orderAmount      金额               string
 endDate          截止日期           string                 2017-11-14
 ===============  ================  ==========  =====  ===========================================
 
@@ -110,15 +110,15 @@ endDate          截止日期           string                 2017-11
 2、智能逆回购查询
 ********
 * 请求方式: post
-* URL：http://192.168.5.252:31800/api/autotrade/order
+* URL：http://172.16.239.239:21800/api/autotrade/order
 * 参数说明
 
 ===============  ================  ==========  =====  ===========================================
      标识              名称          类型       必要         备注
 ===============  ================  ==========  =====  ===========================================
-identifier       用户标识符         string      Y          客户号
-serviceId        服务类型           string      Y          8002：表示国债逆回购
-type             查询类型           string      Y          1: 订阅列表查询，2: 订阅详情查询
+identifier       用户标识符         string      Y      客户号
+serviceId        服务类型           string      Y      8002：表示国债逆回购
+type             查询类型           string      Y      1: 订阅列表查询，2: 订阅详情查询
 order            订阅数据           数组          
 ---------------  ----------------  ----------  -----  -------------------------------------------
 marketId         市场代码           string
