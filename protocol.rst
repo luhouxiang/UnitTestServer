@@ -184,37 +184,38 @@ stockCode        代码               string
  
  http://172.16.239.239:21800/api/autotrade/reverse_query
  {
-  "identifier" : "101500000010",
-  "serviceId" : "8002",
-  "type" : "0",
-  "orderId":"26",
-  "order" : [
-    {
-       "stockCode" : "131810",
-       "marketId" : "0"
-    } 
+     "identifier" : "101500000010",
+     "serviceId" : "8002",
+     "type" : "0",
+     "marketId": "0",
+     "stockCode": "131810"
  }
 
 
 返回::
 
  {
-    "code": "0",
-    "message": "ok",
-    "order": [
-        {
-              "runDate": "2017-11-14",
-              "state": "1",
-              "stockCode": "131811",
-              "marketId": "0"
-        },
-        {
-              "runDate": "2017-11-15",
-              "state": "1",
-              "stockCode": "131811",
-              "marketId": "0"
-        }
-    ],
+     "code": "0",
+     "message": "ok",
+     "order": [
+         {
+             "marketId": "0",
+             "message": "数据过期,未进行申购",
+             "orderAmount": "10000.00",
+             "sndTime": "2017-11-15",
+             "status": "-3",
+             "stockCode": "131810"
+         },
+         {
+             "marketId": "0",
+             "message": "数据过期,未进行申购",
+             "orderAmount": "10000.00",
+             "sndTime": "2017-11-15",
+             "status": "-3",
+             "stockCode": "131810"
+         }
+     ],
+     "orderId": "26"
  }
 
 
