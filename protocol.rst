@@ -143,40 +143,40 @@ stockCode        代码               string
     "code": "0",
     "message": "ok",
     "order": [
-          {
-              "price": "0.01",
-              "publishTime": "2017-11-14",
-              "status": "1",
-              "stockCode": "131811",
-              "stockName": "R－002",
-              "stockExplain": "一天期",
-              "price" : "0.01",
-              "orderAmount" : "10000.00",
-              "buyCount": "0",
-              "successRate":"0.3",
-              "orderStartTime" : "14:30:00",
-              "orderEndTime" : "22:00:00",
-              "endDate" : "2017-11-30"
-
+        {
+            "buyCount": "7",
+            "buyOkCount": "2",
+            "buyOkRate": "0.286",
+            "createTime": "2017-11-16",
+            "endDate": "2017-11-30",
+            "orderAmount": "10000.00",
+            "orderEndTime": "15:00:00",
+            "orderStartTime": "14:30:00",
+            "price": "0.01",
+            "runDay": "1",
+            "status": "1",
+            "stockCode": "131811",
+            "stockExplain": "一天期",
+            "stockName": "R－002"
         },
         {
+            "buyCount": "5",
+            "buyOkCount": "3",
+            "buyOkRate": "0.600",
+            "createTime": "2017-11-16",
+            "endDate": "2017-11-30",
+            "orderAmount": "10000.00",
+            "orderEndTime": "22:00:00",
+            "orderStartTime": "14:30:00",
             "price": "0.01",
-            "publishTime": "2017-11-14",
+            "runDay": "1",
             "status": "1",
-            "stockCode": "131812",
-            "stockName": "R－003"，
+            "stockCode": "131810",
             "stockExplain": "一天期",
-            "price" : "0.01",
-            "orderAmount" : "10000.00",
-            "buyCount": "0",
-            "buyOkRate":"0.3",
-            "orderStartTime" : "14:30:00",
-            "orderEndTime" : "22:00:00",
-            "endDate" : "2017-11-30"
+            "stockName": "R－001"
         }
     ],
-    "orderId": "26",
-    "orderTime": "14:30-15:00",
+    "orderId": "26"
  }
 
 * 订单详情查询（type: 0）
