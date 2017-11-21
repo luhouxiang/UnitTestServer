@@ -45,16 +45,17 @@
 					</ul>
 
 		            <div class="form-group">
-
 		                <input type="text" id="inputurl" class="inputurl" placeholder="Enter request URL" style="width: 626px;margin-top:11px;">
+                        <input type="text" id="inputid" class="inputid"  style="margin: 0px 0px 0px 0px; width: 0px; height: 0px; visibility:hidden; ">
 		                <button type="button" id="send_btn" class="btn btn-default" onclick="btn_send(this)" style="margin-top:0px;">Send</button>
-		            </div>
+		                <button type="button" id="save_btn" class="btn btn-default" onclick="btn_save(this)" style="margin-top:0px;">保存</button>
+		             </div>
 
 		        </div>
 			</div>
 			<div id="collapseFour" class="panel-collapse collapse">
 				<div class="panel-body" style="padding-top:0px;padding-left:0px; padding-bottom:0px">
-					<textarea rows="10" cols="150" id="myPostData" class="myPostData" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
+					<textarea rows="10" cols="150" id="rawModeData" class="rawModeData" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
 				</div>
 			</div>
 		</nav>
@@ -75,154 +76,53 @@
     console.log(Dict['folders']);
 	(function(){
 	    /*初加载*/
-        // btn_add_login();
-        // btn_add_ipo_cx();
-        // btn_add_yuyue_cx();
-        // btn_add_dxjl_cx();
         var request_list = Dict['requests'];
         for(var i=0; i<request_list.length; i++){
             console.log("url: ", request_list[i].url);//注意，此处 i 为键值
             console.log("method: ", request_list[i].method);
             console.log("name: ", request_list[i].name);
             console.log("data: ", request_list[i].rawModeData);
+            console.log("id: ", request_list[i].id);
 
             var name = request_list[i].name;
             var url = request_list[i].url;
             var method = request_list[i].method;
             var data = request_list[i].rawModeData;
+            var id = request_list[i].id;
             console.log("---------------------------------------------------------");
-            btn_add_list(name, url, method, data);
+            btn_add_list(id, name, url, method, data);
         }
 	})();
-	/*添加一个panel*/
 
+    function ShowTip(tip, type) {
+        var $tip = $('#tip');
+        if ($tip.length == 0) {
+            $tip = $('<strong id="tip" style="position:absolute;top:50px;left: 50%;z-index:9999"></strong>');
+            $('body').append($tip);
+        }
+        $tip.stop(true).prop('class', 'alert alert-' + type).text(tip).css('margin-left', -$tip.outerWidth() / 2).fadeIn(500).delay(2000).fadeOut(500);
+    }
 
-    let fun_login = btn_login;
-    function btn_add_login(){
-       var $panel_clone = $('#panel-box>:first').clone(true);
-        $panel_clone.show();
-        $panel_clone.children('.panel-heading').text('登录');
-        $panel_clone.find('.rec_option').text('POST');
-
-        $panel_clone.find('#inputurl').val('https://192.168.5.252:31900/api/trade/ptjy/ptyw/login');
-        $panel_clone.find('#inputurl').next().unbind('click');
-        var $post_data = "{\n" +
-            "\t\"khbzlx\":\"Z\",\n" +
-            "\t\"khbz\":\"310800046832\",\n" +
-            "\t\"jymm\":\"123123\",\n" +
-            "\t\"sessionid\":\"0\",\n" +
-            "\t\"yybdm\":\"1015\",\n" +
-            "\t\"token\":\"0\",\n" +
-            "\t\"lhxx\":\"123\",\n" +
-            "\t\"rzfs\":\"1\",\n" +
-            "\t\"rzxx\":\"\",\n" +
-            "\t\"rznr\":\"\"\n" +
-            "}";
-        $panel_clone.find(".collapse").collapse('show').find('#myPostData').text($post_data);
-        //第二步：在这里替换属性
-        $panel_clone.find('#send_btn').attr('onclick',"fun_login(this)").text('login')
-        var $f_box  = $('#panel-box');
-        $f_box.append($panel_clone);
+    function ShowMsg(msg) {
+        ShowTip(msg, 'info');
     }
 
     let fun_send = btn_send;
-
-    function btn_add_list(name, url, method, data){
+    function btn_add_list(id, name, url, method, data){
        var $panel_clone = $('#panel-box>:first').clone(true);
         $panel_clone.show();
         $panel_clone.children('.panel-heading').text(name);
         $panel_clone.find('.rec_option').text(method);
-
+        $panel_clone.find('#inputid').val(id);
         $panel_clone.find('#inputurl').val(url);
         $panel_clone.find('#inputurl').next().unbind('click');
         var $post_data = data;
-        $panel_clone.find(".collapse").collapse('show').find('#myPostData').text($post_data);
+        $panel_clone.find(".collapse").collapse('show').find('#rawModeData').text($post_data);
         //第二步：在这里替换属性
         $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('查询')
         var $f_box  = $('#panel-box');
         $f_box.append($panel_clone);
     }
-
-
-
-    // 我的预约打新查询
-    function btn_add_yuyue_cx(){
-       var $panel_clone = $('#panel-box>:first').clone(true);
-        $panel_clone.show();
-        $panel_clone.children('.panel-heading').text('我的预约打新查询');
-        $panel_clone.find('.rec_option').text('POST');
-
-        $panel_clone.find('#inputurl').val('https://192.168.5.252:31900/api/autotrade/query');
-        $panel_clone.find('#inputurl').next().unbind('click')
-        var $post_data = "{\n" +
-            "\t\"identifier\" : \"101500000060\",\n" +
-            "\t\"serviceId\" : \"8001\",\n" +
-            "\t\"type\":\"1\"\n" +
-            "}";
-        $panel_clone.find(".collapse").collapse('show').find('#myPostData').text($post_data);
-        //第二步：在这里替换属性
-        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('查询')
-        var $f_box  = $('#panel-box');
-        $f_box.append($panel_clone);
-    }
-
-      // 我的打新记录查询
-    function btn_add_dxjl_cx(){
-       var $panel_clone = $('#panel-box>:first').clone(true);
-        $panel_clone.show();
-        $panel_clone.children('.panel-heading').text('我的打新记录查询');
-        $panel_clone.find('.rec_option').text('POST');
-
-        $panel_clone.find('#inputurl').val('https://192.168.5.252:31900/api/autotrade/query');
-        $panel_clone.find('#inputurl').next().unbind('click')
-        var $post_data = "{\n" +
-            "\t\"identifier\" : \"101500000060\",\n" +
-            "\t\"serviceId\" : \"8001\",\n" +
-            "\t\"type\":\"0\"\n" +
-            "}";
-        $panel_clone.find(".collapse").collapse('show').find('#myPostData').text($post_data);
-        //第二步：在这里替换属性
-        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('查询')
-        var $f_box  = $('#panel-box');
-        $f_box.append($panel_clone);
-    }
-
-    // 新股IPO查询
-    function btn_add_ipo_cx(){
-       var $panel_clone = $('#panel-box>:first').clone(true);
-        $panel_clone.show();
-        $panel_clone.children('.panel-heading').text('新股IPO查询');
-        $panel_clone.find('.rec_option').text('POST');
-
-        $panel_clone.find('#inputurl').val('https://192.168.5.252:31900/api/autotrade/query/ipo');
-        $panel_clone.find('#inputurl').next().unbind('click')
-        var $post_data = "{\n" +
-            "\t\"identifier\" : \"101500000010\",\n" +
-            "\t\"serviceId\" : \"8001\"\n" +
-            "}";
-        $panel_clone.find(".collapse").collapse('show').find('#myPostData').text($post_data);
-        //第二步：在这里替换属性
-        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('查询')
-        var $f_box  = $('#panel-box');
-        $f_box.append($panel_clone);
-    }
-
-
-
-    // 登录
-	function btn_login(dom) {
-		// alert("abc");
-		var $this = $(dom);
-		var $p5 = $this.parent().parent().parent().parent().parent();
-		var method = $p5.find(".rec_option").text();
-		var inputurl = $p5.find(".inputurl").val();
-		var postdata = $p5.find(".myPostData").val();
-		var responsedata = $p5.find(".myResponse");
-		$.post('/login/', {'inputurl': inputurl, 'method':method, 'postdata':postdata}, function(res){
-			responsedata.val(res);
-		});
-	}
-
 
 	// 发送get或post数据，传入底层统一用get
 	function btn_send(dom) {
@@ -230,11 +130,35 @@
         console.log($this.text())
 		var $p5 = $this.parent().parent().parent().parent().parent();
 		var method = $p5.find(".rec_option").text();
-		var inputurl = $p5.find(".inputurl").val();
-		var postdata = $p5.find(".myPostData").val();
+		var url = $p5.find(".inputurl").val();
+		var id = $p5.find(".inputid").val();
+		console.log("btn_send: id: ", id);
+		var rawModeData = $p5.find(".rawModeData").val();
 		var responsedata = $p5.find(".myResponse");
-		$.post('/send/', {'inputurl': inputurl, 'method':method, 'postdata':postdata}, function(res){
+		$.post('/send/', {'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
 			responsedata.val(res);
+		});
+	}
+
+    // 发送get或post数据，传入底层统一用get
+	function btn_save(dom) {
+		var $this = $(dom);
+        console.log($this.text())
+		var $p5 = $this.parent().parent().parent().parent().parent();
+		var method = $p5.find(".rec_option").text();
+		var url = $p5.find(".inputurl").val();
+		var id = $p5.find(".inputid").val();
+		var $p6 = $this.parent().parent().parent().parent().parent().parent();
+		console.log("p6: ", $p6);
+		var name = $p6.find('.panel-heading').text();
+		console.log("btn_save: name: ", name);
+		console.log("btn_save: id: ", id);
+		var rawModeData = $p5.find(".rawModeData").val();
+		var responsedata = $p5.find(".myResponse");
+		$.post('/save/', {'name': name, 'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
+			// responsedata.val(res);
+            // toastr.success("保存成功");
+            ShowMsg(res);
 		});
 	}
 
@@ -258,7 +182,7 @@
     		else {
                 myparent.children('.panel-heading').html('此处POST自定义标题');
                 myparent.find('#inputurl').val('此处POST自定义url')
-    			myparent.find(".collapse").collapse('show').find('#myPostData').text('post发送时预先加载的数据');
+    			myparent.find(".collapse").collapse('show').find('#rawModeData').text('post发送时预先加载的数据');
     		}
     	}
     });

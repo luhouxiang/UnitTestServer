@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from web_json import WebJson
-from account_info import AccountInfo
 from json_conf import JsonConf
 from django.conf import settings
 import json
@@ -9,7 +8,6 @@ import json
 def index(request):
     print(settings.INIT_DATA)
     json_data = JsonConf.load(settings.INIT_DATA)
-    # json_data = {'site': '自强学堂', 'author': '涂伟忠'}
     return render(request, 'index.html', {'Dict': json.dumps(json_data)})
 
 def send(request):
@@ -20,40 +18,40 @@ def send(request):
     """
     if request.method == 'POST':
         web = WebJson()
-        url = request.POST.get('inputurl')
+        url = request.POST.get('url')
         print("打印send: ", url)
         method = request.POST.get('method')
         if 'GET' == method:
             data = web.get(url)
         else:
-            postdata = request.POST.get('postdata')
-            data = web.post(url, postdata)
+            raw_mode_data = request.POST.get('rawModeData')
+            data = web.post(url, raw_mode_data)
         return HttpResponse(data)
 
-def login(request):
+def save(request):
     """
-    用户登录
+    数据保存模块
     :param request:
     :return:
     """
-    web = WebJson()
-    url = request.POST.get('inputurl')
-    postdata = request.POST.get('postdata')
-    data = bytes(postdata, 'utf8')
-    json = web.get_url_json(url, data)
-    try:
-        AccountInfo.zjzh = json["dlxx"][0]["zjzh"]
-        AccountInfo.hkdm = json["dlxx"][0]["khdm"]
-        AccountInfo.yybdm = json["dlxx"][0]["yybdm"]
-        for item in json["gdlb"]:
-            gddm = dict()
-            gddm["gddm"] = item["gddm"]
-            gddm["jysdm"] = item["jysdm"]
-            AccountInfo.gdlb[item["jysdm"]] = gddm
-    except Exception as err:
-        print(err)
-    finally:
-        return HttpResponse(web.parse_json(json))
+    if request.method == 'POST':
+        web = WebJson()
+        id = request.POST.get('id')
+        name = request.POST.get('name')
+        url = request.POST.get('url')
+        raw_mode_data = request.POST.get('rawModeData')
+        print("打印send: ", url)
+        method = request.POST.get('method')
+        request_list = JsonConf.json_data['requests']
+        for item in request_list:
+            if id == item["id"]:
+                item["method"] = method
+                item["rawModeData"] = raw_mode_data
+                item["name"] = name
+                item["url"] = url
+                break
+        JsonConf.store(settings.INIT_DATA)
+    return HttpResponse("保存成功.")
 
 
 

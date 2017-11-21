@@ -19,6 +19,6 @@ from autotrade import views as game_views
 urlpatterns = [
     url(r'^$', game_views.index),
     url(r'^send/$', game_views.send, name='send'),
-    url(r'^login/$', game_views.login, name='login'),
+    url(r'^save/$', game_views.save, name='save'),
     url(r'^admin/', admin.site.urls),
 ]
