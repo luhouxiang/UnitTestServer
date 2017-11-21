@@ -14,11 +14,16 @@ class JsonConf:
     """
     json配置文件类
     """
+    json_data = {}
 
     @staticmethod
-    def store(file_name, data):
+    def store2(file_name, datas):
         with open(file_name, 'w') as json_file:
-            json_file.write(json.dumps(data, indent=4))
+            json_file.write(json.dumps(datas, indent=4))
+
+    @staticmethod
+    def store(file_name):
+        JsonConf.store2(file_name, JsonConf.json_data)
 
     @staticmethod
     def load(file_name):
@@ -27,10 +32,10 @@ class JsonConf:
                 pass
         with open(file_name, encoding="utf-8") as json_file:
             try:
-                data = json.load(json_file)
+                JsonConf.json_data = json.load(json_file)
             except:
-                data = {}
-            return data
+                JsonConf.json_data = {}
+            return JsonConf.json_data
 
     @staticmethod
     def set(file_name, data_dict):
