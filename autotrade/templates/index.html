@@ -179,6 +179,18 @@
 		});
 	}
 
+	/*添加一个panel*/
+    function btn_add(){
+        var $panel_clone = $('#panel-box>:first').clone(true);
+        $panel_clone.show();
+        var $f_box  = $('#panel-box');
+        $f_box.append($panel_clone);
+    }
+    /*删除当前panel*/
+    function btn_sub(dom){
+       $(dom).parent().parent().remove();
+    }
+
 	$(".selectBox").click(function(e){
         var tagName = e.target.tagName;
     	var $this = $(e.target);
