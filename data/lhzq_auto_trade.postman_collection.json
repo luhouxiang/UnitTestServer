@@ -1,532 +1,215 @@
 {
-    "requests": [
-        {
-            "version": 2,
-            "headerData": [],
-            "isFromCollection": true,
-            "pathVariableData": [],
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "dataMode": "raw",
-            "data": [],
-            "name": "\u65b0\u80a1\u5217\u8868(\u5f53\u65e5\uff09",
-            "responses": [],
-            "collectionRequestId": "31af4f57-28e3-449c-398d-7cc9054af840",
-            "currentHelper": "normal",
-            "folder": "569e6b8e-c565-79ed-62b2-bec09a635b5e",
-            "url": "http://192.168.5.252:31800/api/trade/ptjy/zddx/drxglbcx",
-            "helperAttributes": {},
-            "description": "",
-            "queryParams": [],
-            "time": 1504256619239,
-            "rawModeData": "{\n   \"jysdm\" : \"\",\n   \"zqdm\" : \"\",\n   \"xgbz\" : \"1\"\n}",
-            "preRequestScript": "",
-            "headers": "",
-            "method": "POST",
-            "pathVariables": {},
-            "id": "03db4655-5589-d32c-b4f9-36a73cdcc87f",
-            "tests": null
-        },
-        {
-            "url": "https://192.168.5.252:31900/api/autotrade/query/detail",
-            "queryParams": [],
-            "helperAttributes": {},
-            "pathVariableData": [],
-            "time": 1509352180935,
-            "headerData": [
-                {
-                    "description": "",
-                    "enabled": true,
-                    "key": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
-            "name": "\u8ba2\u5355\u8be6\u7ec6\u67e5\u8be2",
-            "pathVariables": {},
-            "rawModeData": "{\r\n\t\"orderId\" : \"123\",\r\n\t\"stockCode\" : \"600001\"\r\n}",
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "headers": "Content-Type: application/json\n",
-            "dataMode": "raw",
-            "data": [],
-            "preRequestScript": null,
-            "responses": [],
-            "tests": null,
-            "description": "",
-            "folder": "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-            "method": "POST",
-            "currentHelper": "normal",
-            "id": "087d8c2f-b7e8-d5ef-3da4-ab19c9380305"
-        },
-        {
-            "headerData": [],
-            "isFromCollection": true,
-            "pathVariableData": [],
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "dataMode": "raw",
-            "data": [],
-            "name": "\u65b0\u80a1\u5bf9\u8d26\u5355",
-            "responses": [],
-            "collectionRequestId": "4581d146-1471-31af-f794-f7815767a8c0",
-            "currentHelper": "normal",
-            "folder": "569e6b8e-c565-79ed-62b2-bec09a635b5e",
-            "url": "http://192.168.5.252:31800/api/trade/ptjy/zddx/sgcx",
-            "helperAttributes": {},
-            "description": "",
-            "queryParams": [],
-            "time": 1505307525287,
-            "rawModeData": "{\n   \"gddm\" : \"A281248764\",\n   \"jysdm\" : \"1\",\n   \"khdm\" : \"101500000060\",\n   \"yybdm\" : \"1015\",\n   \"zqdm\" : \"732157\"\n}",
-            "preRequestScript": null,
-            "headers": "",
-            "method": "POST",
-            "pathVariables": {},
-            "id": "14355784-a6e0-f12b-5487-d7cfd1f1b969",
-            "tests": null
-        },
-        {
-            "url": "https://192.168.5.252:31900/api/autotrade/query",
-            "queryParams": [],
-            "helperAttributes": {},
-            "pathVariableData": [],
-            "time": 1509438999853,
-            "headerData": [
-                {
-                    "description": "",
-                    "enabled": true,
-                    "key": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
-            "name": "\u9884\u7ea6\u67e5\u8be2",
-            "pathVariables": {},
-            "rawModeData": "{\r\n\t\"identifier\" : \"101500000060\",\r\n\t\"serviceId\" : \"8001\",\r\n\t\"type\":\"1\"\r\n}",
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "headers": "Content-Type: application/json\n",
-            "dataMode": "raw",
-            "data": [],
-            "preRequestScript": null,
-            "responses": [],
-            "tests": null,
-            "description": "",
-            "folder": "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-            "method": "POST",
-            "currentHelper": "normal",
-            "id": "207ac9bc-695e-8c96-1c28-378070e98b92"
-        },
-        {
-            "url": "https://192.168.5.252:31900/api/autotrade/order/",
-            "queryParams": [],
-            "helperAttributes": {},
-            "pathVariableData": [],
-            "time": 1509352109783,
-            "headerData": [
-                {
-                    "description": "",
-                    "enabled": true,
-                    "key": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
-            "name": "\u53d6\u6d88\u8ba2\u9605",
-            "pathVariables": {},
-            "rawModeData": "{\n  \"identifier\": \"101500000010\",\n  \"orderId\":\"100030\",\n  \"orderType\": \"0\"\n}",
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "headers": "Content-Type: application/json\n",
-            "dataMode": "raw",
-            "data": [],
-            "preRequestScript": null,
-            "responses": [],
-            "tests": null,
-            "description": "",
-            "folder": "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-            "method": "POST",
-            "currentHelper": "normal",
-            "id": "2ff0cedc-e9f0-7120-fd22-568e9c85a098"
-        },
-        {
-            "url": "https://192.168.5.252:31900/api/autotrade/query",
-            "queryParams": [],
-            "helperAttributes": {},
-            "pathVariableData": [],
-            "time": 1509439103909,
-            "headerData": [
-                {
-                    "description": "",
-                    "enabled": true,
-                    "key": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
-            "name": "\u8fd0\u884c\u67e5\u8be2",
-            "pathVariables": {},
-            "rawModeData": "{\r\n\t\"identifier\" : \"101500000060\",\r\n\t\"serviceId\" : \"8001\",\r\n\t\"type\":\"0\"\r\n}",
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "headers": "Content-Type: application/json\n",
-            "dataMode": "raw",
-            "data": [],
-            "preRequestScript": null,
-            "responses": [],
-            "tests": null,
-            "description": "",
-            "folder": "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-            "method": "POST",
-            "currentHelper": "normal",
-            "id": "3cf3d676-1a68-cb19-0a88-79dc233236f1"
-        },
-        {
-            "headerData": [],
-            "isFromCollection": true,
-            "pathVariableData": [],
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "dataMode": "raw",
-            "data": [],
-            "name": "\u65b0\u80a1\u59d4\u6258\u4e0b\u5355",
-            "responses": [],
-            "collectionRequestId": "5a274c89-621a-d99f-7ed3-cae844527f45",
-            "currentHelper": "normal",
-            "folder": "569e6b8e-c565-79ed-62b2-bec09a635b5e",
-            "url": "http://61.178.60.228:31800/api/trade/ptjy/zddx/wtxd",
-            "helperAttributes": {},
-            "description": "",
-            "queryParams": [],
-            "time": 1505440723275,
-            "rawModeData": "{\n\t\"zqdm\":\"000010\",\n\t\"jysdm\":\"0\",\n\t\"yybdm\":\"1015\",\n\t\"lhxx\":\"123\",\n\t\"gddm\":\"0097053949\",\n\t\"wtjg\":\"5.00\",\n\t\"khdm\":\"310800047221\",\n\t\"zjzh\":\"101500000010\"\n}",
-            "preRequestScript": null,
-            "headers": "",
-            "method": "POST",
-            "pathVariables": {},
-            "id": "56a86d42-69f4-4d1d-42a8-4bc77d3904e7",
-            "tests": null
-        },
-        {
-            "version": 2,
-            "headerData": [],
-            "pathVariableData": [],
-            "pathVariables": {},
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "dataMode": "raw",
-            "data": [],
-            "name": "\u65b0\u80a1\u989d\u5ea6",
-            "responses": [],
-            "currentHelper": "normal",
-            "folder": "569e6b8e-c565-79ed-62b2-bec09a635b5e",
-            "url": "http://61.178.60.228:31800/api/trade/ptjy/zddx/xgedcx",
-            "helperAttributes": {},
-            "description": "test",
-            "queryParams": [],
-            "time": 1504256616828,
-            "rawModeData": "{\n    \"khdm\":\"101500000010\",\n    \"yybdm\":\"1015\",\n    \"gddm\":\"\",\n    \"zqdm\":\"\",\n    \"jysdm\":\"\"\n    \n}",
-            "headers": "",
-            "method": "POST",
-            "preRequestScript": "",
-            "id": "66fc8afd-b58b-2bce-0741-7d5530452421",
-            "tests": null
-        },
-        {
-            "url": "https://192.168.5.252:31900/api/autotrade/query/ipo",
-            "queryParams": [],
-            "helperAttributes": {},
-            "pathVariableData": [],
-            "time": 1509352125950,
-            "headerData": [
-                {
-                    "description": "",
-                    "enabled": true,
-                    "key": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
-            "name": "ipo\u67e5\u8be2",
-            "pathVariables": {},
-            "rawModeData": "{\r\n\t\"identifier\" : \"101500000010\",\r\n\t\"serviceId\" : \"8001\"\r\n}",
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "headers": "Content-Type: application/json\n",
-            "dataMode": "raw",
-            "data": [],
-            "preRequestScript": null,
-            "responses": [],
-            "tests": null,
-            "description": "",
-            "folder": "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-            "method": "POST",
-            "currentHelper": "normal",
-            "id": "7d68db23-ad92-29cd-17fc-2194385adffc"
-        },
-        {
-            "url": "https://192.168.5.252:31900/api/autotrade/order",
-            "queryParams": [],
-            "helperAttributes": {},
-            "pathVariableData": [],
-            "time": 1509352275946,
-            "headerData": [
-                {
-                    "description": "",
-                    "enabled": true,
-                    "key": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
-            "name": "\u6682\u505c",
-            "pathVariables": {},
-            "rawModeData": "{\n   \"identifier\" : \"101500000010\",\n   \"orderId\" : \"64\",\n   \"orderType\" : \"2\"\n}\n",
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "headers": "Content-Type: application/json\n",
-            "dataMode": "raw",
-            "data": [],
-            "preRequestScript": null,
-            "responses": [],
-            "tests": null,
-            "description": "",
-            "folder": "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-            "method": "POST",
-            "currentHelper": "normal",
-            "id": "8c52b4aa-754f-3bff-0516-214d1b9ee0d1"
-        },
-        {
-            "isFromCollection": true,
-            "pathVariableData": [],
-            "pathVariables": {},
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "dataMode": "params",
-            "data": null,
-            "preRequestScript": null,
-            "responses": [],
-            "collectionRequestId": "a0db1fec-4020-0b8c-5246-1bf2b1e679f8",
-            "currentHelper": "normal",
-            "folder": "b0effd9b-ceab-312b-ccbc-d4f68dc8a825",
-            "url": "http://192.168.5.252:31800/api/news/list?req_funType=X1&req_sinceId=0&req_count=20",
-            "helperAttributes": {},
-            "description": "",
-            "headers": "",
-            "time": 1509348915154,
-            "headerData": [],
-            "queryParams": [
-                {
-                    "equals": true,
-                    "value": "X1",
-                    "key": "req_funType",
-                    "enabled": true,
-                    "description": ""
-                },
-                {
-                    "equals": true,
-                    "value": "0",
-                    "key": "req_sinceId",
-                    "enabled": true,
-                    "description": ""
-                },
-                {
-                    "equals": true,
-                    "value": "20",
-                    "key": "req_count",
-                    "enabled": true,
-                    "description": ""
-                }
-            ],
-            "method": "GET",
-            "name": "\u83b7\u53d6\u5f53\u65e5\u65b0\u80a1",
-            "id": "a0db1fec-4020-0b8c-5246-1bf2b1e679f8",
-            "tests": null
-        },
-        {
-            "url": "https://192.168.5.252:31900/api/autotrade/order",
-            "queryParams": [],
-            "helperAttributes": {},
-            "pathVariableData": [],
-            "time": 1509352264555,
-            "headerData": [
-                {
-                    "description": "",
-                    "enabled": true,
-                    "key": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
-            "name": "\u542f\u52a8",
-            "pathVariables": {},
-            "rawModeData": "{\n   \"identifier\" : \"101500000010\",\n   \"orderId\" : \"64\",\n   \"orderType\" : \"2\"\n}\n",
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "headers": "Content-Type: application/json\n",
-            "dataMode": "raw",
-            "data": [],
-            "preRequestScript": null,
-            "responses": [],
-            "tests": null,
-            "description": "",
-            "folder": "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-            "method": "POST",
-            "currentHelper": "normal",
-            "id": "caf7a9a2-8748-7477-5a0f-613a31435b37"
-        },
-        {
-            "isFromCollection": true,
-            "pathVariableData": [],
-            "pathVariables": {},
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "dataMode": "params",
-            "data": null,
-            "preRequestScript": null,
-            "responses": [],
-            "collectionRequestId": "dd9a32d5-9215-e899-c072-3443070610b7",
-            "currentHelper": "normal",
-            "folder": "b0effd9b-ceab-312b-ccbc-d4f68dc8a825",
-            "url": "http://192.168.5.252:31800/api/news/list?req_funType=X4&req_sinceId=0&req_count=100",
-            "helperAttributes": {},
-            "description": "",
-            "headers": "",
-            "time": 1509348953731,
-            "headerData": [],
-            "queryParams": [
-                {
-                    "equals": true,
-                    "value": "X4",
-                    "key": "req_funType",
-                    "enabled": true,
-                    "description": ""
-                },
-                {
-                    "equals": true,
-                    "value": "0",
-                    "key": "req_sinceId",
-                    "enabled": true,
-                    "description": ""
-                },
-                {
-                    "equals": true,
-                    "value": "100",
-                    "key": "req_count",
-                    "enabled": true,
-                    "description": ""
-                }
-            ],
-            "method": "GET",
-            "name": "\u83b7\u53d6\u672a\u6765\u591a\u65e5\u65b0\u80a1(\u9664\u5374\u5f53\u65e5)",
-            "id": "dd9a32d5-9215-e899-c072-3443070610b7",
-            "tests": null
-        },
-        {
-            "version": 2,
-            "headerData": [],
-            "isFromCollection": true,
-            "pathVariableData": [],
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "dataMode": "raw",
-            "data": [],
-            "name": "\u767b\u5f55",
-            "responses": [],
-            "collectionRequestId": "e39f08ac-95db-7be1-dc5f-57b1149a80b9",
-            "currentHelper": "normal",
-            "folder": "c93dcc80-7815-e7cb-54b0-cce8f83cd756",
-            "url": "https://61.178.60.211:21900/api/trade/ptjy/ptyw/login",
-            "helperAttributes": {},
-            "description": "",
-            "queryParams": [],
-            "time": 1504260640809,
-            "rawModeData": "{\n\t\"khbzlx\":\"Z\",\n\t\"khbz\":\"310800046832\",\n\t\"jymm\":\"123123\",\n\t\"sessionid\":\"0\",\n\t\"yybdm\":\"1015\",\n\t\"token\":\"0\",\n\t\"lhxx\":\"123\",\n\t\"rzfs\":\"1\",\n\t\"rzxx\":\"\",\n\t\"rznr\":\"\"\n}",
-            "preRequestScript": "",
-            "headers": "",
-            "method": "POST",
-            "pathVariables": {},
-            "id": "ece87bd8-4c89-e556-b800-b72f930a9b69",
-            "tests": null
-        },
-        {
-            "url": "https://192.168.5.252:31900/api/autotrade/order",
-            "queryParams": [],
-            "helperAttributes": {},
-            "pathVariableData": [],
-            "time": 1509352104831,
-            "headerData": [
-                {
-                    "description": "",
-                    "enabled": true,
-                    "key": "Content-Type",
-                    "value": "application/json"
-                }
-            ],
-            "name": "\u8ba2\u9605",
-            "pathVariables": {},
-            "rawModeData": "{\n   \"appType\" : \"1\",\n   \"identifier\" : \"101500000041\",\n   \"order\" : [\n   \t\n      {\n         \"gddm\" : \"A231941760\",\n         \"marketId\" : \"0\",\n         \"orderDate\" : \"2017-09-14\",\n         \"orderEndTime\" : \"10:00:00\",\n         \"price\" : \"7.71\",\n         \"orderStartTime\" : \"09:30:00\",\n         \"stockCode\" : \"300654\",\n         \"stockName\" : \"\u4e16\u7eaa\u5929\u9e3f\"\n      },\n      {\n         \"gddm\" : \"A231941760\",\n         \"marketId\" : \"1\",\n         \"orderDate\" : \"2017-09-06\",\n         \"orderEndTime\" : \"10:00:00\",\n         \"price\" : \"4.79\",\n         \"orderStartTime\" : \"09:30:00\",\n         \"stockCode\" : \"732363\",\n         \"stockName\" : \"\u50b2\u519c\u751f\u7269\"\n      }\n   ],\n   \"orderChannel\" : \"1\",\n   \"orderId\" : \"0\",\n   \"orderType\" : \"1\",\n   \"serviceId\" : \"8001\",\n   \"telphone\" : \"18766786686\",\n   \"yybdm\" : \"1031\",\n   \"lhxx\" : \"asdasdasdas\",\n   \"zjzh\" : \"101500000040\"\n}\n",
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "headers": "Content-Type: application/json\n",
-            "dataMode": "raw",
-            "data": [],
-            "preRequestScript": null,
-            "responses": [],
-            "tests": null,
-            "description": "",
-            "folder": "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-            "method": "POST",
-            "currentHelper": "normal",
-            "id": "fc078540-3c0f-201d-6426-8e19fb83321a"
-        }
-    ],
-    "description": "",
-    "timestamp": 1503645424585,
-    "owner": "932772",
-    "folders": [
-        {
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "description": "",
-            "owner": "932772",
-            "name": "\u65b0\u80a1\u9884\u7ea6order-service",
-            "folders_order": [],
-            "order": [
-                "2ff0cedc-e9f0-7120-fd22-568e9c85a098",
-                "fc078540-3c0f-201d-6426-8e19fb83321a",
-                "207ac9bc-695e-8c96-1c28-378070e98b92",
-                "7d68db23-ad92-29cd-17fc-2194385adffc",
-                "087d8c2f-b7e8-d5ef-3da4-ab19c9380305",
-                "3cf3d676-1a68-cb19-0a88-79dc233236f1",
-                "caf7a9a2-8748-7477-5a0f-613a31435b37",
-                "8c52b4aa-754f-3bff-0516-214d1b9ee0d1"
-            ],
-            "id": "a590eb89-7eef-9721-35ef-9fb91ac426b4"
-        },
-        {
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "description": "",
-            "owner": "932772",
-            "name": "\u65b0\u80a1\u9884\u7ea6\u666e\u901a\u4ea4\u6613\u670d\u52a1\u5668",
-            "folders_order": [],
-            "order": [
-                "ece87bd8-4c89-e556-b800-b72f930a9b69"
-            ],
-            "id": "c93dcc80-7815-e7cb-54b0-cce8f83cd756"
-        },
-        {
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "description": "",
-            "owner": "932772",
-            "name": "\u65b0\u80a1\u9884\u7ea6\u81ea\u52a8\u4ea4\u6613\u670d\u52a1\u5668",
-            "folders_order": [],
-            "order": [
-                "03db4655-5589-d32c-b4f9-36a73cdcc87f",
-                "56a86d42-69f4-4d1d-42a8-4bc77d3904e7",
-                "14355784-a6e0-f12b-5487-d7cfd1f1b969",
-                "66fc8afd-b58b-2bce-0741-7d5530452421"
-            ],
-            "id": "569e6b8e-c565-79ed-62b2-bec09a635b5e"
-        },
-        {
-            "collectionId": "d4b2580f-351c-3872-af7f-39c92c05ee61",
-            "description": "",
-            "owner": "932772",
-            "name": "\u65b0\u80a1\u9884\u7ea6\u8d44\u8baf\u670d\u52a1\u5668",
-            "folders_order": [],
-            "order": [
-                "a0db1fec-4020-0b8c-5246-1bf2b1e679f8",
-                "dd9a32d5-9215-e899-c072-3443070610b7"
-            ],
-            "id": "b0effd9b-ceab-312b-ccbc-d4f68dc8a825"
-        }
-    ],
     "folders_order": [
-        "a590eb89-7eef-9721-35ef-9fb91ac426b4",
-        "569e6b8e-c565-79ed-62b2-bec09a635b5e",
-        "b0effd9b-ceab-312b-ccbc-d4f68dc8a825",
-        "c93dcc80-7815-e7cb-54b0-cce8f83cd756"
+        "048ef68f-45ec-61a8-8964-e3e8044877c4"
     ],
     "public": false,
-    "name": "\u534e\u9f99\u81ea\u52a8\u4ea4\u6613",
+    "timestamp": 1511252963488,
+    "description": "",
+    "folders": [
+        {
+            "folders_order": [],
+            "description": "",
+            "order": [
+                "fbb7aeec-fa3d-6056-fdf6-de568f782c8c",
+                "7db1c1d4-aeda-b6ea-f253-db0e47fd745f",
+                "66156c05-9486-4634-d406-c51c8082f4c8",
+                "581ec3a0-7389-fe87-7843-c1e4b9923d38",
+                "8a479e9a-0d2e-14c2-d829-ed0c7c35eab8",
+                "a82ad172-ff0c-c7a5-0d13-5103b841119e"
+            ],
+            "collectionId": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "owner": "932772",
+            "name": "\u667a\u80fd\u9006\u56de\u8d2dorder-service",
+            "id": "048ef68f-45ec-61a8-8964-e3e8044877c4"
+        }
+    ],
     "order": [],
-    "id": "d4b2580f-351c-3872-af7f-39c92c05ee61"
+    "requests": [
+        {
+            "method": "POST",
+            "collectionId": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "currentHelper": "normal",
+            "helperAttributes": {},
+            "dataMode": "raw",
+            "name": "\u9006\u56de\u8d2d\u5217\u8868\u67e5\u8be2",
+            "queryParams": [],
+            "pathVariableData": [],
+            "responses": [],
+            "folder": "048ef68f-45ec-61a8-8964-e3e8044877c4",
+            "tests": null,
+            "headers": "Content-Type: application/json\n",
+            "url": "http://172.16.239.239:21800/api/autotrade/reverse_query",
+            "pathVariables": {},
+            "rawModeData": "{\n\t\"identifier\" : \"101500000010\",\n\t\"serviceId\" : \"8002\",\n\t\"type\":\"1\"\n}",
+            "collection_id": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "time": 1510837330566,
+            "headerData": [
+                {
+                    "description": "",
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                }
+            ],
+            "description": "",
+            "preRequestScript": null,
+            "data": [],
+            "id": "581ec3a0-7389-fe87-7843-c1e4b9923d38"
+        },
+        {
+            "folder": "048ef68f-45ec-61a8-8964-e3e8044877c4",
+            "tests": null,
+            "helperAttributes": {},
+            "collectionId": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
+            "pathVariables": {},
+            "rawModeData": "{\n\t\"identifier\" : \"101500000010\",\n\t\"orderType\" : \"4\",\n\t\"serviceId\" : \"8002\",\n\t\"lhxx\" : \"auto.lhxx\",\n\t\"orderId\":\"26\",\n\t\"order\" : [\n\t\t{\n\t\t \"stockCode\" : \"131810\",\n\t\t \"marketId\" : \"0\"\n\t\t}\n\t]\n}\n",
+            "currentHelper": "normal",
+            "name": "\u9006\u56de\u8d2d\u6062\u590d",
+            "time": 1511253408757,
+            "headerData": [
+                {
+                    "description": "",
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                }
+            ],
+            "dataMode": "raw",
+            "description": "",
+            "id": "66156c05-9486-4634-d406-c51c8082f4c8",
+            "queryParams": [],
+            "method": "POST",
+            "headers": "Content-Type: application/json\n",
+            "preRequestScript": null,
+            "pathVariableData": [],
+            "data": [],
+            "responses": []
+        },
+        {
+            "folder": "048ef68f-45ec-61a8-8964-e3e8044877c4",
+            "tests": null,
+            "helperAttributes": {},
+            "collectionId": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
+            "pathVariables": {},
+            "rawModeData": "{\n\t\"identifier\" : \"101500000010\",\n\t\"orderType\" : \"2\",\n\t\"serviceId\" : \"8002\",\n\t\"lhxx\" : \"auto.lhxx\",\n\t\"orderId\":\"26\",\n\t\"order\" : [\n\t  {\n\t     \"stockCode\" : \"131810\",\n\t     \"marketId\" : \"0\"\n\t  }\n\t]\n}\n",
+            "currentHelper": "normal",
+            "name": "\u9006\u56de\u8d2d\u6682\u505c",
+            "time": 1511253289303,
+            "headerData": [
+                {
+                    "description": "",
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                }
+            ],
+            "dataMode": "raw",
+            "description": "",
+            "id": "7db1c1d4-aeda-b6ea-f253-db0e47fd745f",
+            "queryParams": [],
+            "method": "POST",
+            "headers": "Content-Type: application/json\n",
+            "preRequestScript": null,
+            "pathVariableData": [],
+            "data": [],
+            "responses": []
+        },
+        {
+            "method": "POST",
+            "collectionId": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "currentHelper": "normal",
+            "helperAttributes": {},
+            "dataMode": "raw",
+            "name": "\u9006\u56de\u8d2d\u8be6\u5355\u67e5\u8be2",
+            "queryParams": [],
+            "pathVariableData": [],
+            "responses": [],
+            "folder": "048ef68f-45ec-61a8-8964-e3e8044877c4",
+            "tests": null,
+            "headers": "Content-Type: application/json\n",
+            "url": "http://172.16.239.239:21800/api/autotrade/reverse_query",
+            "pathVariables": {},
+            "rawModeData": "{\r\n \"identifier\" : \"101500000010\",\r\n \"serviceId\" : \"8002\",\r\n \"type\" : \"0\",\r\n \"marketId\": \"0\",\r\n \"stockCode\": \"131810\"\r\n}",
+            "collection_id": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "time": 1510902447252,
+            "headerData": [
+                {
+                    "description": "",
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                }
+            ],
+            "description": "",
+            "preRequestScript": null,
+            "data": [],
+            "id": "8a479e9a-0d2e-14c2-d829-ed0c7c35eab8"
+        },
+        {
+            "folder": "048ef68f-45ec-61a8-8964-e3e8044877c4",
+            "tests": null,
+            "helperAttributes": {},
+            "collectionId": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
+            "pathVariables": {},
+            "rawModeData": "{\n\t\"identifier\" : \"101500000010\",\n\t\"orderType\" : \"0\",\n\t\"serviceId\" : \"8002\",\n\t\"lhxx\" : \"auto.lhxx\",\n\t\"orderId\":\"26\",\n\t\"order\" : [\n\t\t{\n\t\t \"stockCode\" : \"131810\",\n\t\t \"marketId\" : \"0\"\n\t\t}\n\t]\n}",
+            "currentHelper": "normal",
+            "name": "\u9006\u56de\u8d2d\u505c\u6b62",
+            "time": 1511253511261,
+            "headerData": [
+                {
+                    "description": "",
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                }
+            ],
+            "dataMode": "raw",
+            "description": "",
+            "id": "a82ad172-ff0c-c7a5-0d13-5103b841119e",
+            "queryParams": [],
+            "method": "POST",
+            "headers": "Content-Type: application/json\n",
+            "preRequestScript": null,
+            "pathVariableData": [],
+            "data": [],
+            "responses": []
+        },
+        {
+            "method": "POST",
+            "collectionId": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "currentHelper": "normal",
+            "helperAttributes": {},
+            "dataMode": "raw",
+            "name": "\u9006\u56de\u8d2d\u8ba2\u9605",
+            "queryParams": [],
+            "pathVariableData": [],
+            "responses": [],
+            "folder": "048ef68f-45ec-61a8-8964-e3e8044877c4",
+            "tests": null,
+            "headers": "Content-Type: application/json\n",
+            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
+            "pathVariables": {},
+            "rawModeData": "{\n   \"appType\" : \"1\",\n   \"identifier\" : \"101500000010\",\n   \"orderChannel\" : \"1\",\n   \"orderType\" : \"1\",\n   \"serviceId\" : \"8002\",\n   \"yybdm\" : \"1015\",\n   \"lhxx\" : \"auto.lhxx\",\n   \"zjzh\" : \"101500000010\",\n   \"order\" : [\n      {\n         \"gddm\" : \"0097053949\",\n         \"marketId\" : \"0\",\n         \"orderDate\" : \"2017-11-14\",\n         \"orderStartTime\" : \"11:30:00\",\n         \"orderEndTime\" : \"22:00:00\",\n         \"stockCode\" : \"131810\",\n         \"stockName\" : \"R\uff0d001\",\n         \"stockExplain\":\"\u4e00\u5929\u671f\",\n         \"price\" : \"4.1\",\n         \"orderAmount\" : \"1000\",\n         \"endDate\" : \"2017-11-30\"\n      }\n   ]\n}\n",
+            "collection_id": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0",
+            "time": 1510981472536,
+            "headerData": [
+                {
+                    "description": "",
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "enabled": true
+                }
+            ],
+            "description": "",
+            "preRequestScript": null,
+            "data": [],
+            "id": "fbb7aeec-fa3d-6056-fdf6-de568f782c8c"
+        }
+    ],
+    "owner": "932772",
+    "name": "\u534e\u9f99\u81ea\u52a8\u9006\u56de\u8d2d",
+    "id": "194d1b9e-7a20-ccb6-87bc-00ce6f029fd0"
 }
