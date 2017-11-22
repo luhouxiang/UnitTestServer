@@ -76,35 +76,49 @@
     console.log(Dict['folders']);
 	(function(){
 	    /*初加载*/
+        var folders_order = Dict['folders_order'];
+        var folders = Dict['folders'];
         var request_list = Dict['requests'];
-        for(var i=0; i<request_list.length; i++){
-            console.log("url: ", request_list[i].url);//注意，此处 i 为键值
-            console.log("method: ", request_list[i].method);
-            console.log("name: ", request_list[i].name);
-            console.log("data: ", request_list[i].rawModeData);
-            console.log("id: ", request_list[i].id);
 
-            var name = request_list[i].name;
-            var url = request_list[i].url;
-            var method = request_list[i].method;
-            var data = request_list[i].rawModeData;
-            var id = request_list[i].id;
-            console.log("---------------------------------------------------------");
-            btn_add_list(id, name, url, method, data);
+        for(var i = 0; i < folders_order.length; i++) {
+            for(var j = 0; j < folders.length; j++) {
+                if (folders_order[i] == folders[j].id) {
+                    for(var m = 0; m < folders[j].order.length; m++) {
+
+                        for(var n = 0; n < request_list.length; n++) {
+                            if(folders[j].order[m] == request_list[n].id) {
+                                console.log("url: ", request_list[n].url);//注意，此处 i 为键值
+                                console.log("method: ", request_list[n].method);
+                                console.log("name: ", request_list[n].name);
+                                console.log("data: ", request_list[n].rawModeData);
+                                console.log("id: ", request_list[n].id);
+
+                                var name = request_list[n].name;
+                                var url = request_list[n].url;
+                                var method = request_list[n].method;
+                                var data = request_list[n].rawModeData;
+                                var id = request_list[n].id;
+                                console.log("---------------------------------------------------------");
+                                btn_add_list(id, name, url, method, data);
+                            }
+                        }
+                    }
+                }
+            }
         }
 	})();
 
-    function ShowTip(tip, type) {
+    function ShowTip(tip,ele, type) {
         var $tip = $('#tip');
         if ($tip.length == 0) {
             $tip = $('<strong id="tip" style="position:absolute;top:50px;left: 50%;z-index:9999"></strong>');
             $('body').append($tip);
         }
-        $tip.stop(true).prop('class', 'alert alert-' + type).text(tip).css('margin-left', -$tip.outerWidth() / 2).fadeIn(500).delay(2000).fadeOut(500);
+        $tip.stop(true).prop('class', 'alert alert-' + type).text(tip).css({'left': $(ele).offset().left+$(ele).width(),'top':$(ele).offset().top-$(ele).height()*3}).fadeIn(500).delay(2000).fadeOut(500);
     }
 
-    function ShowMsg(msg) {
-        ShowTip(msg, 'info');
+    function ShowMsg(msg,ele) {
+        ShowTip(msg,ele, 'info');
     }
 
     let fun_send = btn_send;
@@ -158,7 +172,7 @@
 		$.post('/save/', {'name': name, 'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
 			// responsedata.val(res);
             // toastr.success("保存成功");
-            ShowMsg(res);
+            ShowMsg(res,dom);
 		});
 	}
 
