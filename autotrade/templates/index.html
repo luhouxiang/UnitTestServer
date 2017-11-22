@@ -131,11 +131,13 @@
         $panel_clone.find('#inputurl').val(url);
         $panel_clone.find('#inputurl').next().unbind('click');
         var $post_data = data;
-        $panel_clone.find(".collapse").collapse('show').find('#rawModeData').text($post_data);
+        var rawModeDataCtl = $panel_clone.find(".collapse").collapse('show').find('#rawModeData');
+        rawModeDataCtl.val($post_data);
         //第二步：在这里替换属性
-        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('查询')
+        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送')
         var $f_box  = $('#panel-box');
         $f_box.append($panel_clone);
+        rawModeDataCtl.height(rawModeDataCtl[0].scrollHeight);
     }
 
 	// 发送get或post数据，传入底层统一用get
@@ -151,6 +153,7 @@
 		var responsedata = $p5.find(".myResponse");
 		$.post('/send/', {'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
 			responsedata.val(res);
+			responsedata.height(responsedata[0].scrollHeight);
 		});
 	}
 
