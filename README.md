@@ -1,3 +1,13 @@
+# 2017-11-23 
+当前可在网页上完成协议测试，修改并保存（但不可额外增加数据并保存）
+增加bin目录，其中start.sh,status.sh,stop.sh可完成程序启动，停止，检测状态
+在/etc/rc.d/rc.local中加入以下语句：
+export KDS_MOBILE_STOCK_HOME=/opt/kds/mobile-stock    
+su - kds -c $KDS_MOBILE_STOCK_HOME/UnitTestServer/bin/start.sh    
+即可在系统启动时使用kds用户启动此web程序
+
+
+
 # UnitTestServer
 单元测试服务器    
 python3.5.3 + django1.11.5    
