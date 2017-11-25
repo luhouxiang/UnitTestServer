@@ -21,13 +21,13 @@
 <body>
 
 <div id="panel-box">
-<div class="panel panel-default mypanel">
+<div class="panel panel-default mypanel" style="margin-left:30px">
     <span class="opr-btn">
         <button type="button" class="btn btn-default navbar-btn" onclick="btn_add()">+</button>
         <button type="button" class="btn btn-default navbar-btn" onclick="btn_sub(this)">-</button>
     </span>
 	<div class="panel-heading">
-			标题
+			<span class="btn btn-xs glyphicon glyphicon-minus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide')"></span>&nbsp;<span>标题</span>
 	</div>
 	<div class="panel-body" style="padding-top:1px;">
 		<nav class="navbar navbar-default" >
@@ -71,42 +71,81 @@
 
 <script type="text/javascript">
     var Dict = {{ Dict|safe }};
-    console.log("--- 两种字典的取值方式  ---")
-    console.log(Dict['requests']);
-    console.log(Dict['folders']);
-	(function(){
-	    /*初加载*/
-        var folders_order = Dict['folders_order'];
-        var folders = Dict['folders'];
-        var request_list = Dict['requests'];
-
-        for(var i = 0; i < folders_order.length; i++) {
+    // console.log("--- 两种字典的取值方式  ---")
+    // console.log(Dict['requests']);
+    // console.log(Dict['folders']);
+    function BuildTree(dict, folder_dict, tree) {
+        // console.log("name: ", folder_dict["name"]);
+        // console.log("folder_dict: ", folder_dict);
+        tree["name"] = folder_dict["name"];
+        tree["order"] = folder_dict["order"]
+        var folders = dict['folders'];
+        tree["folders"] = [];
+        tree["item"] = [];
+        for(var i = 0; i < folder_dict["folders_order"].length; i++) {
             for(var j = 0; j < folders.length; j++) {
-                if (folders_order[i] == folders[j].id) {
-                    for(var m = 0; m < folders[j].order.length; m++) {
-
-                        for(var n = 0; n < request_list.length; n++) {
-                            if(folders[j].order[m] == request_list[n].id) {
-                                console.log("url: ", request_list[n].url);//注意，此处 i 为键值
-                                console.log("method: ", request_list[n].method);
-                                console.log("name: ", request_list[n].name);
-                                console.log("data: ", request_list[n].rawModeData);
-                                console.log("id: ", request_list[n].id);
-
-                                var name = request_list[n].name;
-                                var url = request_list[n].url;
-                                var method = request_list[n].method;
-                                var data = request_list[n].rawModeData;
-                                var id = request_list[n].id;
-                                console.log("---------------------------------------------------------");
-                                btn_add_list(id, name, url, method, data);
-                            }
-                        }
-                    }
+                if(folder_dict["folders_order"][i] == folders[j].id) {
+                    tree["folders"].push({});
+                    var folder_len = tree["folders"].length;
+                    BuildTree(dict, folders[j], tree["folders"][folder_len-1]);
                 }
             }
         }
+    }
+
+    function BuildItem(dict, folder) {
+        folder["item"] = [];
+        // console.log("BuildItem: tree: ", folder);
+        var request_list = dict['requests'];
+        for(var i = 0; i < folder["order"].length; i++) {
+            for(var j = 0; j < request_list.length; j++) {
+                if(folder["order"][i] == request_list[j].id) {
+                     folder["item"].push(request_list[j]);
+                }
+            }
+        }
+        for(var i = 0; i < folder["folders"].length; i++) {
+            BuildItem(dict, folder["folders"][i]);
+        }
+    }
+
+	(function(){
+	    /*初加载*/
+	    var tree_data = {};
+        BuildTree(Dict, Dict, tree_data); // 建立节点
+        BuildItem(Dict, tree_data);       // 建立叶子
+        console.log("tree_data: ", tree_data);
+        traversalTree(tree_data,$('#panel-box'))
 	})();
+    function traversalTree(json,ele){
+        var $div = $('<div></div>');
+        $div.attr('style','margin-left:20px')
+        ele.append($div)
+        var $btn = $('<span></span>');
+        $btn.attr('class','btn glyphicon glyphicon-minus')
+        $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").nextAll("div").toggleClass("hide")');
+        $div.append($btn)
+        var $span = $('<span></span>');
+        if(json.name){
+            $span.text(json.name);
+        }
+        $div.append($span);
+        if(json.item){
+            for(var j=0;j<json.item.length;j++){
+                var name = json.item[j].name;
+                var url = json.item[j].url;
+                var method = json.item[j].method;
+                var data = json.item[j].rawModeData;
+                var id = json.item[j].id;
+                btn_add_list($div,id, name, url, method, data)
+            }
+        }
+        if(json.folders){
+            for(var m=0;m<json.folders.length;m++){
+                traversalTree(json.folders[m],$div)
+            }
+        }
+    }
 
     function ShowTip(tip,ele, type) {
         var $tip = $('#tip');
@@ -122,10 +161,10 @@
     }
 
     let fun_send = btn_send;
-    function btn_add_list(id, name, url, method, data){
+    function btn_add_list(ele,id, name, url, method, data){
        var $panel_clone = $('#panel-box>:first').clone(true);
         $panel_clone.show();
-        $panel_clone.children('.panel-heading').text(name);
+        $panel_clone.children('.panel-heading').children().eq(1).text(name)
         $panel_clone.find('.rec_option').text(method);
         $panel_clone.find('#inputid').val(id);
         $panel_clone.find('#inputurl').val(url);
@@ -135,8 +174,7 @@
         rawModeDataCtl.val($post_data);
         //第二步：在这里替换属性
         $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送')
-        var $f_box  = $('#panel-box');
-        $f_box.append($panel_clone);
+        ele.append($panel_clone);
         rawModeDataCtl.height(rawModeDataCtl[0].scrollHeight);
     }
 
