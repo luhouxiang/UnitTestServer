@@ -1,3 +1,6 @@
+#!/usr/bin/python3
+# -*- encoding: utf-8 -*-
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from web_json import WebJson
