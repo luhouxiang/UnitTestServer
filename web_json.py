@@ -1,5 +1,5 @@
 #!/usr/bin/evn python3
-#coding=utf-8
+# -*- encoding: utf-8 -*-
 
 # 针对web端json协议的通信库，通信协议为json,传出的data为json格式，接收的数据也是json格式
 # 外界调用时可先初始化web_json类，如下所示：

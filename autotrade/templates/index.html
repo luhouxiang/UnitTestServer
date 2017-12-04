@@ -20,54 +20,56 @@
 </style>
 <body>
 
-<div id="panel-box">
-<div class="panel panel-default mypanel" style="margin-left:30px">
-    <span class="opr-btn">
-        <button type="button" class="btn btn-default navbar-btn" onclick="btn_add()">+</button>
-        <button type="button" class="btn btn-default navbar-btn" onclick="btn_sub(this)">-</button>
-    </span>
-	<div class="panel-heading">
-			<span class="btn btn-xs glyphicon glyphicon-minus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide')"></span>&nbsp;<span>标题</span>
-	</div>
-	<div class="panel-body" style="padding-top:1px;">
-		<nav class="navbar navbar-default" >
-			<div class="container-fluid" style="padding-left:0px;padding-bottom:0px;">
-		        <div class="navbar-form navbar-left" style="padding-left: 0px;">
+<div class="row">
+    <div id="panel-box" style="">
+        <div class="panel panel-default mypanel" style="margin:10px 30px;">
+        <span class="opr-btn">
+            <button type="button" class="btn btn-default navbar-btn" onclick="btn_add($(this).parent().parent().parent(),$(this).parent().parent())">+</button>
+            <button type="button" class="btn btn-default navbar-btn" onclick="btn_sub(this)">-</button>
+        </span>
+    	<div class="panel-heading">
+    			<span class="btn btn-xs glyphicon glyphicon-plus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide')"></span>&nbsp;<span contenteditable='true'>标题</span>
+    	</div>
+    	<div class="panel-body hide" style="padding-top:1px;">
+    		<nav class="navbar navbar-default" >
+    			<div class="container-fluid" style="padding-left:0px;padding-bottom:0px;">
+    		        <div class="navbar-form navbar-left" style="padding-left: 0px;">
 
-					<ul class="nav navbar-nav">
-						<li class="dropdown" style="width:82px;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" ><span class="rec_option">GET</span> <b class="caret"></b></a>
-							<ul class="dropdown-menu selectBox">
-								<li><a id="action-get" href="#">GET</a></li>
-								<li class="divider"></li>
-								<li><a id="action-post" href="#">POST</a></li>
-							</ul>
-						</li>
-					</ul>
+    					<ul class="nav navbar-nav">
+    						<li class="dropdown" style="width:82px;"><a href="#" class="dropdown-toggle" data-toggle="dropdown" ><span class="rec_option">GET</span> <b class="caret"></b></a>
+    							<ul class="dropdown-menu selectBox">
+    								<li><a id="action-get" href="#">GET</a></li>
+    								<li class="divider"></li>
+    								<li><a id="action-post" href="#">POST</a></li>
+    							</ul>
+    						</li>
+    					</ul>
 
-		            <div class="form-group">
-		                <input type="text" id="inputurl" class="inputurl" placeholder="Enter request URL" style="width: 626px;margin-top:11px;">
-                        <input type="text" id="inputid" class="inputid"  style="margin: 0px 0px 0px 0px; width: 0px; height: 0px; visibility:hidden; ">
-		                <button type="button" id="send_btn" class="btn btn-default" onclick="btn_send(this)" style="margin-top:0px;">Send</button>
-		                <button type="button" id="save_btn" class="btn btn-default" onclick="btn_save(this)" style="margin-top:0px;">保存</button>
-		             </div>
+    		            <div class="form-group">
+    		                <input type="text" id="inputurl" class="inputurl" placeholder="Enter request URL" style="width: 626px;margin-top:11px;">
+                            <input type="text" id="inputid" class="inputid"  style="margin: 0px 0px 0px 0px; width: 0px; height: 0px; visibility:hidden; ">
+    		                <button type="button" id="send_btn" class="btn btn-default" onclick="btn_send(this)" style="margin-top:0px;">Send</button>
+    		                <button type="button" id="save_btn" class="btn btn-default" onclick="btn_save(this)" style="margin-top:0px;">保存</button>
+    		             </div>
 
-		        </div>
-			</div>
-			<div id="collapseFour" class="panel-collapse collapse">
-				<div class="panel-body" style="padding-top:0px;padding-left:0px; padding-bottom:0px">
-					<textarea rows="10" cols="150" id="rawModeData" class="rawModeData" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
-				</div>
-			</div>
-		</nav>
-		Response
-		<nav class="navbar navbar-default">
-			<div class="container-fluid" style="padding-left: 0px;">
-			    <textarea rows="10" cols="150" id="myResponse" class="myResponse" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
-			</div>
-		</nav>
-	</div>
+    		        </div>
+    			</div>
+    			<div id="collapseFour" class="panel-collapse collapse">
+    				<div class="panel-body" style="padding-top:0px;padding-left:0px; padding-bottom:0px">
+    					<textarea rows="10" cols="150" id="rawModeData" class="rawModeData" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
+    				</div>
+    			</div>
+    		</nav>
+    		Response
+    		<nav class="navbar navbar-default">
+    			<div class="container-fluid" style="padding-left: 0px;">
+    			    <textarea rows="10" cols="150" id="myResponse" class="myResponse" style="margin: 0px 0px 0px; width: 913px; height: 100px;"></textarea>
+    			</div>
+    		</nav>
+    	</div>
+        </div>
+    </div>
 </div>
-	</div>
 
 <script type="text/javascript">
     var Dict = {{ Dict|safe }};
@@ -93,6 +95,12 @@
         }
     }
 
+    function show(ele){
+        if(ele.parent().parent().prev().prev().hasClass('glyphicon-plus')){
+            ele.parent().parent().prev().prev().trigger('click');
+        }
+    }
+
     function BuildItem(dict, folder) {
         folder["item"] = [];
         // console.log("BuildItem: tree: ", folder);
@@ -115,21 +123,42 @@
         BuildTree(Dict, Dict, tree_data); // 建立节点
         BuildItem(Dict, tree_data);       // 建立叶子
         console.log("tree_data: ", tree_data);
-        traversalTree(tree_data,$('#panel-box'))
+        traversalTree(tree_data, $('#panel-box'))
 	})();
     function traversalTree(json,ele){
-        var $div = $('<div></div>');
-        $div.attr('style','margin-left:20px')
+        var dropdown = `<div class="dropdown pull-right" style="display: inline-block;">
+                        <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation" onclick="show($(this));add_folder($(this).parent().parent().parent().parent())" tabindex="-1" href="#">
+                                <a role="menuitem">add child folder</a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="show($(this));btn_add($(this).parent().parent().parent().parent())">
+                                <a role="menuitem" tabindex="-1" href="#">add child item</a>
+                            </li>
+                        </ul>
+                    </div>`
+            var $div = $('<div></div>');
+        $div.attr('style','margin:5px 30px');
+		$div.attr('class','panel panel-default');
         ele.append($div)
+		var $childrenDiv = $('<div></div>');
+		$childrenDiv.attr('class','panel panel-heading');
+		$childrenDiv.attr('style','margin:0');
         var $btn = $('<span></span>');
-        $btn.attr('class','btn glyphicon glyphicon-minus')
-        $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").nextAll("div").toggleClass("hide")');
-        $div.append($btn)
+        $btn.attr('class','btn glyphicon glyphicon-plus')
+        $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").parent().nextAll("div").toggleClass("hide")');
+        $childrenDiv.append($btn)
         var $span = $('<span></span>');
+		$span.attr('contenteditable',true);
         if(json.name){
             $span.text(json.name);
         }
-        $div.append($span);
+        $childrenDiv.append($span);
+		$childrenDiv.append(dropdown);
+		$div.append($childrenDiv);
         if(json.item){
             for(var j=0;j<json.item.length;j++){
                 var name = json.item[j].name;
@@ -137,7 +166,7 @@
                 var method = json.item[j].method;
                 var data = json.item[j].rawModeData;
                 var id = json.item[j].id;
-                btn_add_list($div,id, name, url, method, data)
+                btn_add($div,id, name, url, method, data)
             }
         }
         if(json.folders){
@@ -145,8 +174,74 @@
                 traversalTree(json.folders[m],$div)
             }
         }
+		$childrenDiv.nextAll("div").addClass("hide");
+		
     }
+    function add_folder(ele){
+        var dropdown = `<div class="dropdown pull-right" style="display: inline-block;">
+                        <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-th-list"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation" onclick="show($(this));add_folder($(this).parent().parent().parent().parent())" tabindex="-1" href="#">
+                                <a role="menuitem">add child folder</a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="show($(this));btn_add($(this).parent().parent().parent().parent())">
+                                <a role="menuitem" tabindex="-1" href="#">add child item</a>
+                            </li>
+                        </ul>
+                    </div>`
+        console.log("add folder...");
+        var $div = $('<div></div>');
+            $div.attr('style','margin:5px 30px')
+            $div.attr('class','panel panel-default')
+            ele.append($div)
+            var $childrenDiv = $('<div></div>');
+            $childrenDiv.attr('class','panel panel-heading')
+            $childrenDiv.attr('style','margin:0');
 
+            var $btn = $('<span></span>');
+            $btn.attr('class','btn glyphicon glyphicon-plus')
+            $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").parent().nextAll("div").toggleClass("hide")');
+            $childrenDiv.append($btn)
+            var $span = $('<span></span>');
+            $span.attr('contenteditable',true);
+            $span.text('自定义');
+
+            $childrenDiv.append($span);
+            $childrenDiv.append(dropdown);
+            $div.append($childrenDiv);
+            ele.append($div)
+    }
+    let fun_send = btn_send;
+    function btn_add(container, id, name, url, method, data){
+       var $panel_clone = $('#panel-box>:first').clone(true);
+        $panel_clone.show();
+        $panel_clone.children('.panel-heading').children().eq(1).text(name)
+        $panel_clone.find('.rec_option').text(method);
+        $panel_clone.find('#inputid').val(id);
+        $panel_clone.find('#inputurl').val(url);
+        $panel_clone.find('#inputurl').next().unbind('click');
+        var $post_data = data;
+        var rawModeDataCtl = $panel_clone.find(".collapse").collapse('show').find('#rawModeData');
+        rawModeDataCtl.val($post_data);
+        //第二步：在这里替换属性
+        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送')
+		//if(box){
+		//	box.after($panel_clone);
+		//}
+		//else{
+		{
+        	container.append($panel_clone);
+		}
+        // ele.append($panel_clone);
+        // rawModeDataCtl.height(rawModeDataCtl[0].scrollHeight);
+    }
+	/*删除当前panel*/
+	function btn_sub(dom){
+	   $(dom).parent().parent().remove();
+	}
     function ShowTip(tip,ele, type) {
         var $tip = $('#tip');
         if ($tip.length == 0) {
@@ -160,23 +255,6 @@
         ShowTip(msg,ele, 'info');
     }
 
-    let fun_send = btn_send;
-    function btn_add_list(ele,id, name, url, method, data){
-       var $panel_clone = $('#panel-box>:first').clone(true);
-        $panel_clone.show();
-        $panel_clone.children('.panel-heading').children().eq(1).text(name)
-        $panel_clone.find('.rec_option').text(method);
-        $panel_clone.find('#inputid').val(id);
-        $panel_clone.find('#inputurl').val(url);
-        $panel_clone.find('#inputurl').next().unbind('click');
-        var $post_data = data;
-        var rawModeDataCtl = $panel_clone.find(".collapse").collapse('show').find('#rawModeData');
-        rawModeDataCtl.val($post_data);
-        //第二步：在这里替换属性
-        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送')
-        ele.append($panel_clone);
-        rawModeDataCtl.height(rawModeDataCtl[0].scrollHeight);
-    }
 
 	// 发送get或post数据，传入底层统一用get
 	function btn_send(dom) {
@@ -218,12 +296,6 @@
 	}
 
 	/*添加一个panel*/
-    function btn_add(){
-        var $panel_clone = $('#panel-box>:first').clone(true);
-        $panel_clone.show();
-        var $f_box  = $('#panel-box');
-        $f_box.append($panel_clone);
-    }
     /*删除当前panel*/
     function btn_sub(dom){
        $(dom).parent().parent().remove();
