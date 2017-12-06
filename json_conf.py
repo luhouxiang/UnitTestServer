@@ -18,8 +18,9 @@ class JsonConf:
 
     @staticmethod
     def store2(file_name, datas):
-        with open(file_name, 'w') as json_file:
-            json_file.write(json.dumps(datas, indent=4))
+        with open(file_name, 'w', encoding="utf-8") as json_file:
+            tmp = json.dumps(datas, ensure_ascii=False, indent=4)
+            json_file.write(tmp)
 
     @staticmethod
     def store(file_name):
@@ -39,13 +40,14 @@ class JsonConf:
 
     @staticmethod
     def set(file_name, data_dict):
-        json_obj = JsonConf.load()
+        json_obj = JsonConf.load(file_name)
         for key in data_dict:
             json_obj[key] = data_dict[key]
-        JsonConf.store(file_name, json_obj)
-        print(json.dumps(json_obj, indent=4))
+        JsonConf.store2(file_name, json_obj)
+        print(json.dumps(json_obj, ensure_ascii=False, indent=4))
 
 
 if __name__ == "__main__":
-    data = {"a": " 1", "f": "100", "b": "3000"}
-    JsonConf.set(data)
+    # data = {"a": " 1", "f": "100", "b": "3000"}
+    # JsonConf.set("mytest.json", data)
+    pass

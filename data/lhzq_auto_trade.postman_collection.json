@@ -1,506 +1,186 @@
 {
-    "description": "",
-    "public": false,
-    "timestamp": 1511580616468,
-    "folders_order": [
-        "8f55ff9e-976d-e98c-cfa8-cb9eebfed66e",
-        "eae222d1-0aa1-95e4-140a-f9fdc661a068",
-        "49ba782a-71af-19ae-50da-ec2610085dbf"
-    ],
-    "owner": "932772",
-    "name": "\u534e\u9f99\u81ea\u52a8\u4ea4\u6613\uff0d\u6d4b\u8bd5",
-    "id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-    "order": [
-        "c94083a7-dff8-44f8-f592-1a8203045750"
-    ],
-    "folders": [
-        {
-            "description": "",
-            "folders_order": [],
-            "owner": "932772",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "name": "\u65b0\u80a1\u9884\u7ea6\u81ea\u52a8\u4ea4\u6613\u670d\u52a1\u5668",
-            "id": "eae222d1-0aa1-95e4-140a-f9fdc661a068",
-            "order": [
-                "dafeb41b-45bb-4db4-942a-3b0785e87c47",
-                "3c12ae73-355e-bc74-63e3-b8af5cf3ca7d",
-                "f354baeb-6a34-74e9-09da-bafe0054d9e1",
-                "5816cc93-fa37-93a5-b19d-87a384bce643"
-            ]
-        },
-        {
-            "description": "",
-            "folders_order": [],
-            "owner": "932772",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "name": "\u65b0\u80a1\u9884\u7ea6\u8d44\u8baf\u670d\u52a1\u5668",
-            "id": "49ba782a-71af-19ae-50da-ec2610085dbf",
-            "order": [
-                "ee562dcd-c189-8f7e-a886-fdc802d914da",
-                "2568c302-b11d-ebbb-0fd6-b8bbaf815088"
-            ]
-        },
-        {
-            "description": "",
-            "folders_order": [
-                "ebd56479-b39f-5a51-ad94-43fbc81f36be",
-                "9eec20ae-7adf-1a31-367e-7074457cbf48"
-            ],
-            "owner": "932772",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "name": "\u667a\u80fd\u9006\u56de\u8d2dorder-service",
-            "id": "8f55ff9e-976d-e98c-cfa8-cb9eebfed66e",
-            "order": [
-                "31e91426-af02-c00f-4308-e29f2dcaedf7"
-            ]
-        },
-        {
-            "folder": "8f55ff9e-976d-e98c-cfa8-cb9eebfed66e",
-            "description": "",
-            "folders_order": [],
-            "owner": "932772",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "name": "\u667a\u80fd\u9006\u56de\u8d2d\u505c\u6b62",
-            "id": "9eec20ae-7adf-1a31-367e-7074457cbf48",
-            "order": [
-                "e2355f40-4b95-1dcb-27ca-7b4951e31d21",
-                "a3c83403-1978-7b17-a941-a569293cc675",
-                "62270129-897c-4ff5-abaa-34b5c0beb51d"
-            ]
-        },
-        {
-            "folder": "8f55ff9e-976d-e98c-cfa8-cb9eebfed66e",
-            "description": "",
-            "folders_order": [],
-            "owner": "932772",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "name": "\u667a\u80fd\u9006\u56de\u8d2d\u8ba2\u9605",
-            "id": "ebd56479-b39f-5a51-ad94-43fbc81f36be",
-            "order": [
-                "d0cbd9d5-c02b-220e-2ec2-584590f863ee",
-                "40f5ecb2-f6c1-3b28-bff8-d683ba180835"
-            ]
-        }
-    ],
     "requests": [
         {
-            "name": "\u83b7\u53d6\u672a\u6765\u591a\u65e5\u65b0\u80a1(\u9664\u5374\u5f53\u65e5)",
-            "pathVariables": {},
-            "responses": [],
-            "data": null,
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "params",
-            "url": "http://192.168.5.252:31800/api/news/list?req_funType=X4&req_sinceId=0&req_count=100",
-            "helperAttributes": {},
-            "time": 1509348953731,
-            "preRequestScript": null,
-            "method": "GET",
-            "pathVariableData": [],
-            "headers": "",
-            "currentHelper": "normal",
-            "queryParams": [
-                {
-                    "description": "",
-                    "key": "req_funType",
-                    "enabled": true,
-                    "equals": true,
-                    "value": "X4"
-                },
-                {
-                    "description": "",
-                    "key": "req_sinceId",
-                    "enabled": true,
-                    "equals": true,
-                    "value": "0"
-                },
-                {
-                    "description": "",
-                    "key": "req_count",
-                    "enabled": true,
-                    "equals": true,
-                    "value": "100"
-                }
-            ],
-            "folder": "49ba782a-71af-19ae-50da-ec2610085dbf",
-            "isFromCollection": true,
-            "id": "2568c302-b11d-ebbb-0fd6-b8bbaf815088",
-            "headerData": [],
-            "tests": null
-        },
-        {
-            "name": "\n\t\t\t\u00a0\u8fd0\u884c\u67e5\u8be2\n\t",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "raw",
-            "url": "https://192.168.5.252:31900/api/autotrade/query",
             "rawModeData": "{\n\t\"identifier\" : \"101500000060\",\n\t\"serviceId\" : \"8001\",\n\t\"type\":\"0\"\n}",
-            "time": 1509439103909,
-            "preRequestScript": null,
-            "method": "POST",
-            "pathVariableData": [],
-            "headers": "Content-Type: application/json\n",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "8f55ff9e-976d-e98c-cfa8-cb9eebfed66e",
-            "id": "31e91426-af02-c00f-4308-e29f2dcaedf7",
+            "description": "",
+            "tests": null,
+            "name": "查询",
             "headerData": [
                 {
-                    "description": "",
+                    "value": "application/json",
                     "key": "Content-Type",
-                    "enabled": true,
-                    "value": "application/json"
+                    "description": "",
+                    "enabled": true
                 }
             ],
-            "helperAttributes": {},
-            "tests": null
-        },
-        {
-            "name": "\u65b0\u80a1\u59d4\u6258\u4e0b\u5355",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "raw",
-            "url": "http://61.178.60.228:31800/api/trade/ptjy/zddx/wtxd",
-            "helperAttributes": {},
-            "time": 1505440723275,
-            "preRequestScript": null,
             "method": "POST",
-            "pathVariableData": [],
-            "headers": "",
+            "time": 1512404977683,
+            "url": "https://192.168.5.252:31900/api/autotrade/query",
             "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "eae222d1-0aa1-95e4-140a-f9fdc661a068",
-            "isFromCollection": true,
-            "id": "3c12ae73-355e-bc74-63e3-b8af5cf3ca7d",
-            "headerData": [],
-            "rawModeData": "{\n\t\"zqdm\":\"000010\",\n\t\"jysdm\":\"0\",\n\t\"yybdm\":\"1015\",\n\t\"lhxx\":\"123\",\n\t\"gddm\":\"0097053949\",\n\t\"wtjg\":\"5.00\",\n\t\"khdm\":\"310800047221\",\n\t\"zjzh\":\"101500000010\"\n}",
-            "tests": null
-        },
-        {
-            "name": "\u667a\u80fd\u9006\u56de\u8d2d\u8ba2\u96052",
-            "pathVariables": {},
+            "preRequestScript": null,
+            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
             "responses": [],
             "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
+            "id": "4a1c9450-bf4b-fb1e-5b26-6c902d25540e",
+            "queryParams": [],
             "dataMode": "raw",
-            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
-            "rawModeData": "{\n   \"appType\" : \"1\",\n   \"identifier\" : \"101500000010\",\n   \"order\" : [\n      {\n         \"gddm\" : \"A231941760\",\n         \"marketId\" : \"0\",\n         \"orderDate\" : \"2017-11-14\",\n         \"orderStartTime\" : \"14:30:00\",\n         \"orderEndTime\" : \"15:00:00\",\n         \"stockCode\" : \"131811\",\n         \"stockName\" : \"R\uff0d002\",\n         \"price\" : \"0.01\",\n         \"orderAmount\" : \"10000.00\",\n         \"endDate\" : \"2017-11-30\"\n      }\n   ],\n   \"orderChannel\" : \"1\",\n   \"orderId\" : \"0\",\n   \"orderType\" : \"1\",\n   \"serviceId\" : \"8002\",\n   \"telphone\" : \"13751047443\",\n   \"yybdm\" : \"1031\",\n   \"lhxx\" : \"auto.lhxx\",\n   \"zjzh\" : \"101500000010\"\n}\n",
-            "time": 1510625904096,
-            "preRequestScript": null,
-            "method": "POST",
-            "pathVariableData": [],
+            "helperAttributes": {},
             "headers": "Content-Type: application/json\n",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "ebd56479-b39f-5a51-ad94-43fbc81f36be",
-            "id": "40f5ecb2-f6c1-3b28-bff8-d683ba180835",
-            "headerData": [
-                {
-                    "description": "",
-                    "key": "Content-Type",
-                    "enabled": true,
-                    "value": "application/json"
-                }
-            ],
-            "helperAttributes": "{}",
-            "tests": null
-        },
-        {
-            "name": "\u65b0\u80a1\u989d\u5ea6",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "test",
-            "dataMode": "raw",
-            "url": "http://61.178.60.228:31800/api/trade/ptjy/zddx/xgedcx",
-            "helperAttributes": {},
-            "time": 1504256616828,
-            "preRequestScript": "",
-            "version": 2,
-            "method": "POST",
             "pathVariableData": [],
-            "headers": "",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "eae222d1-0aa1-95e4-140a-f9fdc661a068",
-            "id": "5816cc93-fa37-93a5-b19d-87a384bce643",
-            "headerData": [],
-            "rawModeData": "{\r\n    \"khdm\":\"101500000010\",\r\n    \"yybdm\":\"1015\",\r\n    \"gddm\":\"\",\r\n    \"zqdm\":\"\",\r\n    \"jysdm\":\"\"\r\n    \r\n}",
-            "tests": null
+            "pathVariables": {},
+            "folder": "97d14056-30b3-87fb-6aa6-9095f48baf15"
         },
         {
-            "name": "\u9006\u505c\u6b623",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
+            "id": "ae634a0b-a661-6f2b-54d1-ea0c85501b1d",
             "description": "",
-            "dataMode": "raw",
-            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
-            "rawModeData": "{\n  \"identifier\": \"101500000010\",\n  \"serviceId\": \"8002\",\n  \"orderId\":\"26\",\n  \"orderType\": \"0\",\n   \"order\" : [\n      {\n         \"stockCode\" : \"131812\",\n         \"marketId\" : \"0\"\n      }\n   ],\n  \"lhxx\" : \"auto.lhxx\",\n  \"zjzh\" : \"101500000010\"\n}",
-            "time": 1510645825673,
-            "preRequestScript": null,
-            "method": "POST",
-            "pathVariableData": [],
-            "headers": "Content-Type: application/json\n",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "9eec20ae-7adf-1a31-367e-7074457cbf48",
-            "id": "62270129-897c-4ff5-abaa-34b5c0beb51d",
-            "headerData": [
-                {
-                    "description": "",
-                    "key": "Content-Type",
-                    "enabled": true,
-                    "value": "application/json"
-                }
-            ],
-            "helperAttributes": "{}",
-            "tests": null
-        },
-        {
-            "name": "\u9006\u505c\u6b622",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "raw",
-            "url": "http://192.168.5.252:21800/api/http-cache-service/select/100000?__MsgType=KPIS.700001",
-            "rawModeData": "{\n  \"identifier\": \"101500000010\",\n  \"serviceId\": \"8002\",\n  \"orderId\":\"26\",\n  \"orderType\": \"0\",\n  \"order\" : [\n      {\n         \"stockCode\" : \"131811\",\n         \"marketId\" : \"0\"\n      }\n   ],\n  \"lhxx\" : \"auto.lhxx\",\n  \"zjzh\" : \"101500000010\"\n}",
-            "time": 1511146198227,
-            "preRequestScript": null,
             "method": "GET",
-            "pathVariableData": [],
-            "headers": "Content-Type: application/json\n",
-            "currentHelper": "normal",
-            "queryParams": [
-                {
-                    "description": "",
-                    "key": "__MsgType",
-                    "enabled": true,
-                    "equals": true,
-                    "value": "KPIS.700001"
-                }
-            ],
-            "folder": "9eec20ae-7adf-1a31-367e-7074457cbf48",
-            "id": "a3c83403-1978-7b17-a941-a569293cc675",
-            "headerData": [
-                {
-                    "description": "",
-                    "key": "Content-Type",
-                    "enabled": true,
-                    "value": "application/json"
-                }
-            ],
-            "helperAttributes": "{}",
-            "tests": null
-        },
-        {
-            "name": "\u667a\u80fd\u9006\u56de\u8d2d\u8ba2\u9605\uff0d\u6700\u9876\u5c42",
-            "pathVariables": {},
-            "folderId": "ebd56479-b39f-5a51-ad94-43fbc81f36be",
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "raw",
-            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
-            "rawModeData": "{\n   \"appType\" : \"1\",\n   \"identifier\" : \"101500000010\",\n   \"order\" : [\n      {\n         \"gddm\" : \"A231941760\",\n         \"marketId\" : \"0\",\n         \"orderDate\" : \"2017-11-14\",\n         \"orderStartTime\" : \"14:30:00\",\n         \"orderEndTime\" : \"15:00:00\",\n         \"stockCode\" : \"131812\",\n         \"stockName\" : \"R\uff0d003\",\n         \"price\" : \"0.01\",\n         \"orderAmount\" : \"10000.00\",\n         \"endDate\" : \"2017-11-30\"\n      }\n   ],\n   \"orderChannel\" : \"1\",\n   \"orderId\" : \"0\",\n   \"orderType\" : \"1\",\n   \"serviceId\" : \"8002\",\n   \"telphone\" : \"13751047443\",\n   \"yybdm\" : \"1031\",\n   \"lhxx\" : \"auto.lhxx\",\n   \"zjzh\" : \"101500000010\"\n}\n",
-            "time": 1510625937119,
-            "preRequestScript": null,
-            "method": "POST",
-            "pathVariableData": [],
-            "headers": "Content-Type: application/json\n",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "id": "c94083a7-dff8-44f8-f592-1a8203045750",
-            "headerData": [
-                {
-                    "description": "",
-                    "key": "Content-Type",
-                    "enabled": true,
-                    "value": "application/json"
-                }
-            ],
-            "helperAttributes": "{}",
-            "tests": null
-        },
-        {
-            "name": "\u667a\u80fd\u9006\u56de\u8d2d\u8ba2\u96051",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "raw",
-            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
-            "rawModeData": "{\n   \"appType\" : \"1\",\n   \"identifier\" : \"101500000010\",\n   \"orderChannel\" : \"1\",\n   \"orderType\" : \"1\",\n   \"serviceId\" : \"8002\",\n   \"yybdm\" : \"1031\",\n   \"lhxx\" : \"auto.lhxx\",\n   \"zjzh\" : \"101500000010\",\n   \"order\" : [\n      {\n         \"gddm\" : \"A231941760\",\n         \"marketId\" : \"0\",\n         \"orderDate\" : \"2017-11-14\",\n         \"orderStartTime\" : \"11:30:00\",\n         \"orderEndTime\" : \"22:00:00\",\n         \"stockCode\" : \"131810\",\n         \"stockName\" : \"R\uff0d001\",\n         \"stockExplain\":\"\u4e00\u5929\u671f\",\n         \"price\" : \"0.01\",\n         \"orderAmount\" : \"10000.00\",\n         \"endDate\" : \"2017-11-30\"\n      }\n   ]\n}\n",
-            "time": 1510981472536,
-            "preRequestScript": null,
-            "method": "POST",
-            "pathVariableData": [],
-            "headers": "Content-Type: application/json\n",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "ebd56479-b39f-5a51-ad94-43fbc81f36be",
-            "id": "d0cbd9d5-c02b-220e-2ec2-584590f863ee",
-            "headerData": [
-                {
-                    "description": "",
-                    "key": "Content-Type",
-                    "enabled": true,
-                    "value": "application/json"
-                }
-            ],
-            "helperAttributes": "{}",
-            "tests": null
-        },
-        {
-            "name": "\u65b0\u80a1\u5217\u8868(\u5f53\u65e5\uff09",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "raw",
-            "url": "http://61.178.60.228:31800/api/trade/ptjy/zddx/drxglbcx",
-            "helperAttributes": {},
-            "time": 1504256619239,
-            "preRequestScript": "",
-            "version": 2,
-            "method": "POST",
-            "pathVariableData": [],
             "headers": "",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "eae222d1-0aa1-95e4-140a-f9fdc661a068",
-            "isFromCollection": true,
-            "id": "dafeb41b-45bb-4db4-942a-3b0785e87c47",
-            "headerData": [],
-            "rawModeData": "{\r\n   \"jysdm\" : \"\",\r\n   \"zqdm\" : \"\",\r\n   \"xgbz\" : \"1\"\r\n}",
-            "tests": null
-        },
-        {
-            "name": "\u9006\u505c\u6b621",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "raw",
-            "url": "http://172.16.239.239:21800/api/autotrade/reverse_order",
-            "rawModeData": "{\n  \"identifier\": \"101500000010\",\n  \"serviceId\": \"8002\",\n  \"orderId\":\"26\",\n  \"orderType\": \"0\",\n   \"order\" : [\n      {\n         \"stockCode\" : \"131810\",\n         \"marketId\" : \"0\"\n      }\n   ],\n  \"lhxx\" : \"auto.lhxx\",\n  \"zjzh\" : \"101500000010\"\n}",
-            "time": 1510645815242,
-            "preRequestScript": null,
-            "method": "POST",
-            "pathVariableData": [],
-            "headers": "Content-Type: application/json\n",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "9eec20ae-7adf-1a31-367e-7074457cbf48",
-            "isFromCollection": true,
-            "id": "e2355f40-4b95-1dcb-27ca-7b4951e31d21",
-            "headerData": [
-                {
-                    "description": "",
-                    "key": "Content-Type",
-                    "enabled": true,
-                    "value": "application/json"
-                }
-            ],
-            "helperAttributes": "{}",
-            "collectionRequestId": "e2355f40-4b95-1dcb-27ca-7b4951e31d21",
-            "tests": null
-        },
-        {
-            "name": "\u83b7\u53d6\u5f53\u65e5\u65b0\u80a1",
-            "pathVariables": {},
             "responses": [],
             "data": null,
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "description": "",
-            "dataMode": "params",
-            "url": "http://192.168.5.252:31800/api/news/list?req_funType=X1&req_sinceId=0&req_count=20",
-            "helperAttributes": {},
-            "time": 1509348915154,
-            "preRequestScript": null,
-            "method": "GET",
-            "pathVariableData": [],
-            "headers": "",
-            "currentHelper": "normal",
             "queryParams": [
                 {
-                    "description": "",
+                    "value": "X1",
                     "key": "req_funType",
+                    "description": "",
                     "enabled": true,
-                    "equals": true,
-                    "value": "X1"
+                    "equals": true
                 },
                 {
-                    "description": "",
+                    "value": "0",
                     "key": "req_sinceId",
+                    "description": "",
                     "enabled": true,
-                    "equals": true,
-                    "value": "0"
+                    "equals": true
                 },
                 {
-                    "description": "",
+                    "value": "20",
                     "key": "req_count",
+                    "description": "",
                     "enabled": true,
-                    "equals": true,
-                    "value": "20"
+                    "equals": true
                 }
             ],
-            "folder": "49ba782a-71af-19ae-50da-ec2610085dbf",
-            "isFromCollection": true,
-            "id": "ee562dcd-c189-8f7e-a886-fdc802d914da",
+            "pathVariableData": [],
+            "folder": "49031d31-1e99-ce0b-03a0-48cb205031f4",
+            "name": "获取当日新股",
             "headerData": [],
-            "tests": null
+            "collection_id": "68fb0099-b257-44bc-b8e3-88c472797e1e",
+            "currentHelper": "normal",
+            "preRequestScript": null,
+            "isFromCollection": true,
+            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
+            "tests": null,
+            "url": "http://192.168.5.252:31800/api/news/list?req_funType=X1&req_sinceId=0&req_count=20",
+            "helperAttributes": "{}",
+            "time": 1509348915154,
+            "pathVariables": {},
+            "dataMode": "params"
         },
         {
-            "name": "\u65b0\u80a1\u5bf9\u8d26\u5355",
-            "pathVariables": {},
-            "responses": [],
-            "data": [],
-            "collection_id": "a50b0a87-425c-c47c-673a-2b346a31d33d",
-            "collectionId": "a50b0a87-425c-c47c-673a-2b346a31d33d",
             "description": "",
-            "dataMode": "raw",
-            "url": "http://192.168.5.252:31800/api/trade/ptjy/zddx/sgcx",
-            "rawModeData": "{\n   \"gddm\" : \"0097053949\",\n   \"jysdm\" : \"0\",\n   \"khdm\" : \"101500000060\",\n   \"yybdm\" : \"1015\"\n}",
-            "time": 1509608707812,
-            "preRequestScript": null,
-            "method": "POST",
-            "pathVariableData": [],
-            "headers": "",
-            "currentHelper": "normal",
-            "queryParams": [],
-            "folder": "eae222d1-0aa1-95e4-140a-f9fdc661a068",
-            "id": "f354baeb-6a34-74e9-09da-bafe0054d9e1",
+            "tests": null,
+            "name": "获取未来多日新股(除却当日)",
             "headerData": [],
+            "method": "GET",
+            "url": "http://192.168.5.252:31800/api/news/list?req_funType=X4&req_sinceId=0&req_count=100",
+            "currentHelper": "normal",
+            "headers": "",
+            "id": "c609a1da-bffd-f867-4b24-5fbe1d5ebc09",
+            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
+            "responses": [],
+            "data": null,
+            "preRequestScript": null,
+            "queryParams": [
+                {
+                    "value": "X4",
+                    "key": "req_funType",
+                    "description": "",
+                    "enabled": true,
+                    "equals": true
+                },
+                {
+                    "value": "0",
+                    "key": "req_sinceId",
+                    "description": "",
+                    "enabled": true,
+                    "equals": true
+                },
+                {
+                    "value": "100",
+                    "key": "req_count",
+                    "description": "",
+                    "enabled": true,
+                    "equals": true
+                }
+            ],
+            "dataMode": "params",
             "helperAttributes": {},
-            "tests": null
+            "time": 1512405007718,
+            "pathVariableData": [],
+            "pathVariables": {},
+            "folder": "49031d31-1e99-ce0b-03a0-48cb205031f4"
+        },
+        {
+            "queryParams": [],
+            "description": "",
+            "tests": null,
+            "responses": "",
+            "headerData": [],
+            "method": "POST",
+            "time": "1512523516",
+            "currentHelper": "normal",
+            "preRequestScript": null,
+            "id": "50c48058-da24-11e7-ba5d-48452079f6ca",
+            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
+            "name": "查询2",
+            "data": [],
+            "url": "https://192.168.5.252:31900/api/autotrade/query",
+            "headers": [
+                "Content-Type: application/json\n"
+            ],
+            "dataMode": "raw",
+            "helperAttributes": {},
+            "folder": "97d14056-30b3-87fb-6aa6-9095f48baf15",
+            "pathVariableData": [],
+            "pathVariables": {},
+            "rawModeData": "{\n\t\"identifier\" : \"101500000060\",\n\t\"serviceId\" : \"8001\",\n\t\"type\":\"0\"\n}"
         }
-    ]
+    ],
+    "owner": "2166518",
+    "description": "",
+    "order": [],
+    "folders": [
+        {
+            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
+            "owner": "2166518",
+            "order": [
+                "ae634a0b-a661-6f2b-54d1-ea0c85501b1d",
+                "c609a1da-bffd-f867-4b24-5fbe1d5ebc09"
+            ],
+            "description": "",
+            "id": "49031d31-1e99-ce0b-03a0-48cb205031f4",
+            "name": "新股预约资讯服务器",
+            "folders_order": []
+        },
+        {
+            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
+            "owner": "2166518",
+            "order": [
+                "4a1c9450-bf4b-fb1e-5b26-6c902d25540e",
+                "50c48058-da24-11e7-ba5d-48452079f6ca"
+            ],
+            "description": "",
+            "id": "97d14056-30b3-87fb-6aa6-9095f48baf15",
+            "name": "智能逆回购order-service",
+            "folders_order": []
+        }
+    ],
+    "id": "68fb0099-b257-44bc-b8e3-88c472797e1e",
+    "name": "华龙自动交易－测试",
+    "folders_order": [
+        "97d14056-30b3-87fb-6aa6-9095f48baf15",
+        "49031d31-1e99-ce0b-03a0-48cb205031f4"
+    ],
+    "timestamp": 1511580616468,
+    "public": false
 }
