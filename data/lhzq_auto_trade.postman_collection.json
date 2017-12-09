@@ -1,186 +1,79 @@
 {
-    "requests": [
-        {
-            "rawModeData": "{\n\t\"identifier\" : \"101500000060\",\n\t\"serviceId\" : \"8001\",\n\t\"type\":\"0\"\n}",
-            "description": "",
-            "tests": null,
-            "name": "查询",
-            "headerData": [
-                {
-                    "value": "application/json",
-                    "key": "Content-Type",
-                    "description": "",
-                    "enabled": true
-                }
-            ],
-            "method": "POST",
-            "time": 1512404977683,
-            "url": "https://192.168.5.252:31900/api/autotrade/query",
-            "currentHelper": "normal",
-            "preRequestScript": null,
-            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
-            "responses": [],
-            "data": [],
-            "id": "4a1c9450-bf4b-fb1e-5b26-6c902d25540e",
-            "queryParams": [],
-            "dataMode": "raw",
-            "helperAttributes": {},
-            "headers": "Content-Type: application/json\n",
-            "pathVariableData": [],
-            "pathVariables": {},
-            "folder": "97d14056-30b3-87fb-6aa6-9095f48baf15"
-        },
-        {
-            "id": "ae634a0b-a661-6f2b-54d1-ea0c85501b1d",
-            "description": "",
-            "method": "GET",
-            "headers": "",
-            "responses": [],
-            "data": null,
-            "queryParams": [
-                {
-                    "value": "X1",
-                    "key": "req_funType",
-                    "description": "",
-                    "enabled": true,
-                    "equals": true
-                },
-                {
-                    "value": "0",
-                    "key": "req_sinceId",
-                    "description": "",
-                    "enabled": true,
-                    "equals": true
-                },
-                {
-                    "value": "20",
-                    "key": "req_count",
-                    "description": "",
-                    "enabled": true,
-                    "equals": true
-                }
-            ],
-            "pathVariableData": [],
-            "folder": "49031d31-1e99-ce0b-03a0-48cb205031f4",
-            "name": "获取当日新股",
-            "headerData": [],
-            "collection_id": "68fb0099-b257-44bc-b8e3-88c472797e1e",
-            "currentHelper": "normal",
-            "preRequestScript": null,
-            "isFromCollection": true,
-            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
-            "tests": null,
-            "url": "http://192.168.5.252:31800/api/news/list?req_funType=X1&req_sinceId=0&req_count=20",
-            "helperAttributes": "{}",
-            "time": 1509348915154,
-            "pathVariables": {},
-            "dataMode": "params"
-        },
-        {
-            "description": "",
-            "tests": null,
-            "name": "获取未来多日新股(除却当日)",
-            "headerData": [],
-            "method": "GET",
-            "url": "http://192.168.5.252:31800/api/news/list?req_funType=X4&req_sinceId=0&req_count=100",
-            "currentHelper": "normal",
-            "headers": "",
-            "id": "c609a1da-bffd-f867-4b24-5fbe1d5ebc09",
-            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
-            "responses": [],
-            "data": null,
-            "preRequestScript": null,
-            "queryParams": [
-                {
-                    "value": "X4",
-                    "key": "req_funType",
-                    "description": "",
-                    "enabled": true,
-                    "equals": true
-                },
-                {
-                    "value": "0",
-                    "key": "req_sinceId",
-                    "description": "",
-                    "enabled": true,
-                    "equals": true
-                },
-                {
-                    "value": "100",
-                    "key": "req_count",
-                    "description": "",
-                    "enabled": true,
-                    "equals": true
-                }
-            ],
-            "dataMode": "params",
-            "helperAttributes": {},
-            "time": 1512405007718,
-            "pathVariableData": [],
-            "pathVariables": {},
-            "folder": "49031d31-1e99-ce0b-03a0-48cb205031f4"
-        },
-        {
-            "queryParams": [],
-            "description": "",
-            "tests": null,
-            "responses": "",
-            "headerData": [],
-            "method": "POST",
-            "time": "1512523516",
-            "currentHelper": "normal",
-            "preRequestScript": null,
-            "id": "50c48058-da24-11e7-ba5d-48452079f6ca",
-            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
-            "name": "查询2",
-            "data": [],
-            "url": "https://192.168.5.252:31900/api/autotrade/query",
-            "headers": [
-                "Content-Type: application/json\n"
-            ],
-            "dataMode": "raw",
-            "helperAttributes": {},
-            "folder": "97d14056-30b3-87fb-6aa6-9095f48baf15",
-            "pathVariableData": [],
-            "pathVariables": {},
-            "rawModeData": "{\n\t\"identifier\" : \"101500000060\",\n\t\"serviceId\" : \"8001\",\n\t\"type\":\"0\"\n}"
-        }
-    ],
-    "owner": "2166518",
-    "description": "",
-    "order": [],
-    "folders": [
-        {
-            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
-            "owner": "2166518",
-            "order": [
-                "ae634a0b-a661-6f2b-54d1-ea0c85501b1d",
-                "c609a1da-bffd-f867-4b24-5fbe1d5ebc09"
-            ],
-            "description": "",
-            "id": "49031d31-1e99-ce0b-03a0-48cb205031f4",
-            "name": "新股预约资讯服务器",
-            "folders_order": []
-        },
-        {
-            "collectionId": "68fb0099-b257-44bc-b8e3-88c472797e1e",
-            "owner": "2166518",
-            "order": [
-                "4a1c9450-bf4b-fb1e-5b26-6c902d25540e",
-                "50c48058-da24-11e7-ba5d-48452079f6ca"
-            ],
-            "description": "",
-            "id": "97d14056-30b3-87fb-6aa6-9095f48baf15",
-            "name": "智能逆回购order-service",
-            "folders_order": []
-        }
-    ],
-    "id": "68fb0099-b257-44bc-b8e3-88c472797e1e",
-    "name": "华龙自动交易－测试",
-    "folders_order": [
-        "97d14056-30b3-87fb-6aa6-9095f48baf15",
-        "49031d31-1e99-ce0b-03a0-48cb205031f4"
-    ],
-    "timestamp": 1511580616468,
-    "public": false
+	"id": "484c21bf-1d39-f1d9-886e-97de00453ade",
+	"name": "测试游戏",
+	"description": "游戏url",
+	"order": [],
+	"folders": [
+		{
+			"owner": "932772",
+			"lastUpdatedBy": "932772",
+			"lastRevision": 1475550796,
+			"folder": null,
+			"id": "7e70fc76-8ad6-3272-e4ce-f735352b5678",
+			"name": "1. 系统",
+			"description": "",
+			"order": [
+				"3ca91078-edfe-f245-9017-04477f5229cb",
+				"30a3d4a1-7414-b2fa-12d5-f8fffddd641a"
+			],
+			"folders_order": [],
+			"collectionId": "484c21bf-1d39-f1d9-886e-97de00453ade"
+		}
+	],
+	"folders_order": [
+		"7e70fc76-8ad6-3272-e4ce-f735352b5678"
+	],
+	"timestamp": 1512816758916,
+	"owner": "932772",
+	"public": false,
+	"requests": [
+		{
+			"id": "30a3d4a1-7414-b2fa-12d5-f8fffddd641a",
+			"name": "3. 签到",
+			"dataMode": "params",
+			"data": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://192.168.230.10:21800/api/gm-service/reqGetGift/select/100000?uid=2",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"queryParams": [],
+			"headerData": [],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "484c21bf-1d39-f1d9-886e-97de00453ade",
+			"collection_id": "484c21bf-1d39-f1d9-886e-97de00453ade",
+			"folder": "7e70fc76-8ad6-3272-e4ce-f735352b5678"
+		},
+		{
+			"id": "3ca91078-edfe-f245-9017-04477f5229cb",
+			"name": "1. 请求游戏列表",
+			"dataMode": "params",
+			"data": null,
+			"rawModeData": null,
+			"descriptionFormat": "html",
+			"description": "",
+			"headers": "",
+			"method": "GET",
+			"pathVariables": {},
+			"url": "http://192.168.230.10:21800/api/gm-service/reqGameConf/select/100000?uid=2",
+			"preRequestScript": null,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"queryParams": [],
+			"headerData": [],
+			"pathVariableData": [],
+			"responses": [],
+			"collectionId": "484c21bf-1d39-f1d9-886e-97de00453ade",
+			"collection_id": "484c21bf-1d39-f1d9-886e-97de00453ade",
+			"folder": "7e70fc76-8ad6-3272-e4ce-f735352b5678"
+		}
+	]
 }
