@@ -8,8 +8,10 @@ from json_conf import JsonConf
 from util import Util
 from django.conf import settings
 import json
+from user_logbook import user_log as logger
 
 def index(request):
+    logger.info("index: 初始化文件：" + settings.INIT_DATA)
     print(settings.INIT_DATA)
     json_data = JsonConf.load(settings.INIT_DATA)
     return render(request, 'index.html', {'Dict': json.dumps(json_data)})
@@ -23,12 +25,12 @@ def send(request):
     if request.method == 'POST':
         web = WebJson()
         url = request.POST.get('url')
-        print("打印send: ", url)
         method = request.POST.get('method')
+        raw_mode_data = request.POST.get('rawModeData')
+        logger.info("send: " + "url: " + url + ", method: " + method + ", data: " + raw_mode_data)
         if 'GET' == method:
             data = web.get(url)
         else:
-            raw_mode_data = request.POST.get('rawModeData')
             data = web.post(url, raw_mode_data)
         return HttpResponse(data)
 
@@ -122,6 +124,7 @@ def save_new_folder(request):
     item["collectionId"] = collection_id
     item["name"] = name
     folder_list.append(item)
+
 
     folder_list = JsonConf.json_data['folders']
     for fd in folder_list:
