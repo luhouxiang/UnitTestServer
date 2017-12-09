@@ -20,5 +20,9 @@ urlpatterns = [
     url(r'^$', game_views.index),
     url(r'^send/$', game_views.send, name='send'),
     url(r'^save/$', game_views.save, name='save'),
+    url(r'^save_new_item/$', game_views.save_new_item, name='save_new_item'),
+    url(r'^save_change_item/$', game_views.save_change_item, name='save_change_item'),
+    url(r'^save_new_folder/$', game_views.save_new_folder, name='save_new_folder'),
+    url(r'^save_change_folder/$', game_views.save_change_folder, name='save_change_folder'),
     url(r'^admin/', admin.site.urls),
 ]

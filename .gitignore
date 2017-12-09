@@ -105,3 +105,6 @@ ENV/
 
 # db.sqlite3
 db.sqlite3
+
+# log 忽略log日志
+log/
