@@ -116,7 +116,7 @@ def save_new_folder(request):
     logger.info("new_folder: " + str_data)
     jsons = json.loads(str_data)
     owner = jsons['owner']
-    folder_id = jsons['folder']
+    parent_folder_id = jsons['parent_folderId']
     collection_id = jsons['collectionId']
     name = jsons['name']
 
@@ -128,13 +128,13 @@ def save_new_folder(request):
     item["name"] = name
     folder_list.append(item)
 
-
-    folder_list = JsonConf.json_data['folders']
-    for fd in folder_list:
-        if fd["id"] == folder_id:
-            fd["folders_order"].append(item["id"])
-            break
-
+    if collection_id == parent_folder_id:
+        JsonConf.json_data["folders_order"].append(item["id"])
+    else:
+        for fd in folder_list:
+            if fd["id"] == parent_folder_id:
+                fd["folders_order"].append(item["id"])
+                break
     JsonConf.store(settings.INIT_DATA)
     return HttpResponse(item["id"])
 
