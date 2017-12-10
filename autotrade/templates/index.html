@@ -31,6 +31,20 @@
     -->
     	<div class="panel-heading">
     			<span class="btn btn-xs glyphicon glyphicon-plus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide')"></span><span contenteditable='true'>标题</span>
+                <div class="dropdown pull-right" style="display: inline-block;margin-top:-5px">
+                    <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation" onclick="btn_save(this)" tabindex="-1" href="#">
+                            <a role="menuitem">save</a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation" onclick="btn_sub(this)">
+                            <a role="menuitem" tabindex="-1" href="#">delete</a>
+                        </li>
+                    </ul>
+                </div>
     	</div>
     	<div class="panel-body hide" style="padding-top:1px;">
     		<nav class="navbar navbar-default" >
@@ -83,7 +97,7 @@
 
         tree["collectionId"] = collectionId;
         tree["name"] = folder_dict["name"];
-        
+
         tree["folderId"] = folder_dict["id"]
         tree["order"] = folder_dict["order"];
         tree["folders"] = [];
@@ -143,6 +157,14 @@
                             <li role="presentation" onclick="show($(this));add_item($(this).parent().parent().parent().parent())">
                                 <a role="menuitem" tabindex="-1" href="#">add child item</a>
                             </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="btn_save()" tabindex="-1" href="#">
+                                <a role="menuitem">save</a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="btn_sub(this)">
+                                <a role="menuitem" tabindex="-1" href="#">delete</a>
+                            </li>
                         </ul>
                     </div>`
         var $div = $('<div></div>');
@@ -150,7 +172,7 @@
 		$div.attr('class','panel panel-default');
         ele.append($div)
 		var $childrenDiv = $('<div></div>');
-		$childrenDiv.attr('class','panel panel-heading');
+		$childrenDiv.attr('class','panel-heading');
 		$childrenDiv.attr('style','margin:0');
         var $btn = $('<span></span>');
 
@@ -184,7 +206,7 @@
             }
         }
 		$childrenDiv.nextAll("div").addClass("hide");
-		
+
     }
     function add_folder(ele){
         var dropdown = `<div class="dropdown pull-right" style="display: inline-block;">
@@ -199,6 +221,14 @@
                             <li role="presentation" onclick="show($(this));add_item($(this).parent().parent().parent().parent())">
                                 <a role="menuitem" tabindex="-1" href="#">add child item</a>
                             </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="btn_save()" tabindex="-1" href="#">
+                                <a role="menuitem">save</a>
+                            </li>
+                            <li role="presentation" class="divider"></li>
+                            <li role="presentation" onclick="btn_sub(this)">
+                                <a role="menuitem" tabindex="-1" href="#">delete</a>
+                            </li>
                         </ul>
                     </div>`
         console.log("add folder...");
@@ -209,7 +239,7 @@
         $div.attr('class','panel panel-default')
         ele.append($div)
         var $childrenDiv = $('<div></div>');
-        $childrenDiv.attr('class','panel panel-heading')
+        $childrenDiv.attr('class','panel-heading')
         $childrenDiv.attr('style','margin:0');
 
         var $btn = $('<span></span>');
@@ -300,8 +330,8 @@
             $panel_clone.find('#itemId').val(item.id);
             $panel_clone.find('#folderId').val(item.folder);
             $panel_clone.find('#collectionId').val(item.collectionId);
-            $panel_clone.find('#inputurl').val(item.url);  
-            $panel_clone.find(".collapse").collapse('show').find('#rawModeData').val(item.rawModeData);          
+            $panel_clone.find('#inputurl').val(item.url);
+            $panel_clone.find(".collapse").collapse('show').find('#rawModeData').val(item.rawModeData);
         }
 
         $panel_clone.find('#inputurl').next().unbind('click');
@@ -318,7 +348,7 @@
 
 	/*删除当前panel*/
 	function btn_sub(dom){
-	   $(dom).parent().parent().remove();
+	   $(dom).closest('.panel').remove();
 	}
     function ShowTip(tip,ele, type) {
         var $tip = $('#tip');

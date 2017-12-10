@@ -124,4 +124,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-INIT_DATA = os.path.join(BASE_DIR, 'data/lhzq_auto_trade.postman_collection.json')
+INIT_DATA = os.path.join(BASE_DIR, 'data/test.postman_collection.json')

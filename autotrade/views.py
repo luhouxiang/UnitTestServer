@@ -46,6 +46,7 @@ def save_new_item(request):
         return HttpResponse("数据异常.")
 
     str_data = request.POST.get('jsons')
+    logger.info("new_item: " + str_data)
     jsons = json.loads(str_data)
     name = jsons['name']
     method = jsons['method']
@@ -79,6 +80,7 @@ def save_change_item(request):
         return HttpResponse("数据异常.")
 
     str_data = request.POST.get('jsons')
+    logger.info("change_item: " + str_data)
     jsons = json.loads(str_data)
     id = jsons['id']
     name = jsons['name']
@@ -111,6 +113,7 @@ def save_new_folder(request):
         return HttpResponse("数据异常.")
 
     str_data = request.POST.get('jsons')
+    logger.info("new_folder: " + str_data)
     jsons = json.loads(str_data)
     owner = jsons['owner']
     folder_id = jsons['folder']
@@ -140,6 +143,7 @@ def save_change_folder(request):
         return HttpResponse("数据异常.")
 
     str_data = request.POST.get('jsons')
+    logger.info("change_folder: " + str_data)
     jsons = json.loads(str_data)
     owner = jsons['owner']
     folder_id = jsons['folder']
@@ -156,8 +160,6 @@ def save_change_folder(request):
 
     JsonConf.store(settings.INIT_DATA)
     return HttpResponse("保存成功.")
-
-
 
 def save(request):
     """
