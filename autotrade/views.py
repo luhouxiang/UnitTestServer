@@ -116,7 +116,7 @@ def save_new_folder(request):
     logger.info("new_folder: " + str_data)
     jsons = json.loads(str_data)
     owner = jsons['owner']
-    folder_id = jsons['folder']
+    parent_folder_id = jsons['parent_folderId']
     collection_id = jsons['collectionId']
     name = jsons['name']
 
@@ -128,13 +128,13 @@ def save_new_folder(request):
     item["name"] = name
     folder_list.append(item)
 
-
-    folder_list = JsonConf.json_data['folders']
-    for fd in folder_list:
-        if fd["id"] == folder_id:
-            fd["folders_order"].append(item["id"])
-            break
-
+    if collection_id == parent_folder_id:
+        JsonConf.json_data["folders_order"].append(item["id"])
+    else:
+        for fd in folder_list:
+            if fd["id"] == parent_folder_id:
+                fd["folders_order"].append(item["id"])
+                break
     JsonConf.store(settings.INIT_DATA)
     return HttpResponse(item["id"])
 
@@ -209,5 +209,64 @@ def save(request):
     return HttpResponse("保存成功.")
 
 
+def save_tree_state(request):
+    """
+    数据树状态
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        # web = WebJson()
+        is_folder = request.POST.get('is_folder')
+        item_id = request.POST.get('id')
+        expand = request.POST.get('expand')
 
+        if is_folder == "1":
+            folder_list = JsonConf.json_data['folders']
+            if JsonConf.json_data['id'] == item_id:
+                JsonConf.json_data["expand"] = expand
+            else:
+                for item in folder_list:
+                    if item["id"] == item_id:
+                        item["expand"] = expand
+                        break
+        else:
+            request_list = JsonConf.json_data['requests']
+            for item in request_list:
+                if item["id"] == item_id:
+                    item["expand"] = expand
+                    break
+        JsonConf.store(settings.INIT_DATA)
+    return HttpResponse("保存成功.")
+
+
+def save_tree_title(request):
+    """
+    数据树标题
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        # web = WebJson()
+        is_folder = request.POST.get('is_folder')
+        item_id = request.POST.get('item_id')
+        name = request.POST.get('title')
+
+        if is_folder == "1":
+            folder_list = JsonConf.json_data['folders']
+            if JsonConf.json_data['id'] == item_id:
+                JsonConf.json_data["name"] = name
+            else:
+                for item in folder_list:
+                    if item["id"] == item_id:
+                        item["name"] = name
+                        break
+        else:
+            request_list = JsonConf.json_data['requests']
+            for item in request_list:
+                if item["id"] == item_id:
+                    item["name"] = name
+                    break
+        JsonConf.store(settings.INIT_DATA)
+    return HttpResponse("保存成功.")
 

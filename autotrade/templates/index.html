@@ -17,36 +17,33 @@
     .mypanel{position: relative;display: none;}
     .opr-btn{position: absolute;right: 200px;}
     .navbar-btn{margin-top:2px;margin-bottom:8px;}
+    .dropdown li,.dropdown a{
+        cursor:pointer;
+    }
 </style>
 <body>
 
 <div class="row">
     <div id="panel-box" style="">
         <div class="panel panel-default mypanel" style="margin:10px 30px;">
-       <!--
-        <span class="opr-btn">
-            <button type="button" class="btn btn-default navbar-btn" onclick="btn_add($(this).parent().parent().parent(),$(this).parent().parent())">+</button>
-            <button type="button" class="btn btn-default navbar-btn" onclick="btn_sub(this)">-</button>
-        </span>
-    -->
-    	<div class="panel-heading">
-    			<span class="btn btn-xs glyphicon glyphicon-plus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide')"></span><span contenteditable='true'>标题</span>
+    	<div class="panel-heading" style="background: #fff">
+    			<span class="btn btn-xs glyphicon glyphicon-plus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide show');saveTreeState(this)"></span><span contenteditable='true' onfocusin="savaHistory(this)" onfocusout="saveTitle(this)">标题</span>
                 <div class="dropdown pull-right" style="display: inline-block;margin-top:-5px">
                     <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-th-list"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                         <li role="presentation" onclick="btn_save(this)" tabindex="-1" href="#">
-                            <a role="menuitem">save</a>
+                            <a role="menuitem">保存项目</a>
                         </li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation" onclick="btn_sub(this)">
-                            <a role="menuitem" tabindex="-1" href="#">delete</a>
+                            <a role="menuitem" tabindex="-1" href="#">删除项目</a>
                         </li>
                     </ul>
                 </div>
     	</div>
-    	<div class="panel-body hide" style="padding-top:1px;">
+    	<div class="panel-body" style="padding-top:1px;">
     		<nav class="navbar navbar-default" >
     			<div class="container-fluid" style="padding-left:0px;padding-bottom:0px;">
     		        <div class="navbar-form navbar-left" style="padding-left: 0px;">
@@ -67,7 +64,6 @@
                             <input type="text" id="folderId" class="folderId" style="margin: 0px 0px 0px 0px; width: 0px; height: 0px; visibility:hidden; ">
                             <input type="text" id="collectionId" class ="collectionId" style="margin: 0px 0px 0px 0px; width: 0px; height: 0px; visibility:hidden; ">
     		                <button type="button" id="send_btn" class="btn btn-default" onclick="btn_send(this)" style="margin-top:0px;">Send</button>
-    		                <button type="button" id="save_btn" class="btn btn-default" onclick="btn_save(this)" style="margin-top:0px;">保存</button>
     		             </div>
 
     		        </div>
@@ -91,13 +87,18 @@
 
 <script type="text/javascript">
     var Dict = {{ Dict|safe }};
-    function BuildTree(dict, folder_dict, tree) {
+    function BuildLogicTree(dict, folder_dict, tree) {
         var folders = dict['folders']; // folders只针对最外层
         var collectionId = dict["id"];
+        var owner = dict["owner"];
 
         tree["collectionId"] = collectionId;
         tree["name"] = folder_dict["name"];
+        tree["expand"] = folder_dict["expand"];
+        if(!folder_dict["expand"])
+            tree["expand"] = "0";
 
+        tree["owner"] = owner;
         tree["folderId"] = folder_dict["id"]
         tree["order"] = folder_dict["order"];
         tree["folders"] = [];
@@ -107,7 +108,7 @@
                 if(folder_dict["folders_order"][i] == folders[j].id) {
                     tree["folders"].push({});
                     var folder_len = tree["folders"].length;
-                    BuildTree(dict, folders[j], tree["folders"][folder_len-1]);
+                    BuildLogicTree(dict, folders[j], tree["folders"][folder_len-1]);
                 }
             }
         }
@@ -119,9 +120,9 @@
         }
     }
 
-    function BuildItem(dict, folder) {
+    function BuildLogicItem(dict, folder) {
         folder["item"] = [];
-        // console.log("BuildItem: tree: ", folder);
+        // console.log("BuildLogicItem: tree: ", folder);
         var request_list = dict['requests'];
         for(var i = 0; i < folder["order"].length; i++) {
             for(var j = 0; j < request_list.length; j++) {
@@ -131,65 +132,21 @@
             }
         }
         for(var i = 0; i < folder["folders"].length; i++) {
-            BuildItem(dict, folder["folders"][i]);
+            BuildLogicItem(dict, folder["folders"][i]);
         }
     }
 
 	(function(){
 	    /*初加载*/
 	    var tree_data = {};
-        BuildTree(Dict, Dict, tree_data); // 建立节点
-        BuildItem(Dict, tree_data);       // 建立叶子
+        BuildLogicTree(Dict, Dict, tree_data); // 建立节点
+        BuildLogicItem(Dict, tree_data);       // 建立叶子
         console.log("tree_data: ", tree_data);
-        traversalTree(tree_data, $('#panel-box'))
+        BuildHtmlTree(tree_data, $('#panel-box'))
 	})();
 
-    function traversalTree(tree,ele){
-        var dropdown = `<div class="dropdown pull-right" style="display: inline-block;">
-                        <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-th-list"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation" onclick="show($(this));add_folder($(this).parent().parent().parent().parent())" tabindex="-1" href="#">
-                                <a role="menuitem">add child folder</a>
-                            </li>
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation" onclick="show($(this));add_item($(this).parent().parent().parent().parent())">
-                                <a role="menuitem" tabindex="-1" href="#">add child item</a>
-                            </li>
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation" onclick="btn_save()" tabindex="-1" href="#">
-                                <a role="menuitem">save</a>
-                            </li>
-                            <li role="presentation" class="divider"></li>
-                            <li role="presentation" onclick="btn_sub(this)">
-                                <a role="menuitem" tabindex="-1" href="#">delete</a>
-                            </li>
-                        </ul>
-                    </div>`
-        var $div = $('<div></div>');
-        $div.attr('style','margin:5px 30px');
-		$div.attr('class','panel panel-default');
-        ele.append($div)
-		var $childrenDiv = $('<div></div>');
-		$childrenDiv.attr('class','panel-heading');
-		$childrenDiv.attr('style','margin:0');
-        var $btn = $('<span></span>');
-
-        $btn.attr('data-folderId', tree.folderId);
-        $btn.attr('data-collectionId', tree.collectionId);
-
-        $btn.attr('class','btn glyphicon glyphicon-plus')
-        $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").parent().nextAll("div").toggleClass("hide")');
-        $childrenDiv.append($btn)
-        var $span = $('<span></span>');
-		$span.attr('contenteditable',true);
-        if(tree.name){
-            $span.text(tree.name);
-        }
-        $childrenDiv.append($span);
-		$childrenDiv.append(dropdown);
-		$div.append($childrenDiv);
+    function BuildHtmlTree(tree,ele){
+        let $div = add_folder(ele,tree)
         if(tree.item){
             for(var j=0;j<tree.item.length;j++){
                 var name = tree.item[j].name;
@@ -197,18 +154,24 @@
                 var method = tree.item[j].method;
                 var data = tree.item[j].rawModeData;
                 var id = tree.item[j].id;
-                btn_add($div, null, tree.item[j])
+                BuildHtmlItem($div, null, tree.item[j])
             }
         }
         if(tree.folders){
             for(var m=0;m<tree.folders.length;m++){
-                traversalTree(tree.folders[m],$div)
+                BuildHtmlTree(tree.folders[m],$div)
             }
         }
-		$childrenDiv.nextAll("div").addClass("hide");
-
+        console.log($div)
+        let $childrenDiv = $div.children("div:first-child")
+        console.log($childrenDiv)
+        if(tree.expand=="0"){
+            $childrenDiv.nextAll('div').addClass('hide')
+        }else{
+            $childrenDiv.nextAll('div').addClass('show')
+        }
     }
-    function add_folder(ele){
+    function add_folder(ele,tree){
         var dropdown = `<div class="dropdown pull-right" style="display: inline-block;">
                         <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-th-list"></span>
@@ -218,13 +181,10 @@
                                 <a role="menuitem">add child folder</a>
                             </li>
                             <li role="presentation" class="divider"></li>
-                            <li role="presentation" onclick="show($(this));add_item($(this).parent().parent().parent().parent())">
+                            <li role="presentation" onclick="show($(this));add_new_item($(this).parent().parent().parent().parent())">
                                 <a role="menuitem" tabindex="-1" href="#">add child item</a>
                             </li>
                             <li role="presentation" class="divider"></li>
-                            <li role="presentation" onclick="btn_save()" tabindex="-1" href="#">
-                                <a role="menuitem">save</a>
-                            </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation" onclick="btn_sub(this)">
                                 <a role="menuitem" tabindex="-1" href="#">delete</a>
@@ -232,8 +192,9 @@
                         </ul>
                     </div>`
         console.log("add folder...");
+        var ownerId = ele.find("[data-ownerId]").attr("data-ownerId");
         var collectionId = ele.find("[data-collectionId]").attr('data-collectionId');
-        var folderId = ele.find("[data-folderId]").attr('data-folderId');
+        var parent_folderId = ele.find("[data-folderId]").attr('data-folderId');
         var $div = $('<div></div>');
         $div.attr('style','margin:5px 30px')
         $div.attr('class','panel panel-default')
@@ -243,41 +204,65 @@
         $childrenDiv.attr('style','margin:0');
 
         var $btn = $('<span></span>');
-        $btn.attr('data-collectionId', collectionId );
-        $btn.attr('class','btn glyphicon glyphicon-plus')
-        $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").parent().nextAll("div").toggleClass("hide")');
+        if(tree.expand=="0"){
+            console.log('folder shousuo',tree.expand)
+            $btn.attr('class','btn glyphicon glyphicon-plus')
+        }else{
+            console.log('folder zhankai',tree.expand)
+            $btn.attr('class','btn glyphicon glyphicon-minus')
+        }
+        if(tree){
+            $btn.attr('data-ownerId', tree.owner);
+            $btn.attr('data-folderId', tree.folderId);
+            $btn.attr('data-collectionId', tree.collectionId);
+        }else{
+            $btn.attr('data-ownerId', ownerId);
+            $btn.attr('data-collectionId', collectionId );
+        }
 
-        var folderId = $btn.attr('data-folderId');
-        console.log("folder: ", folderId);
+        $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").parent().nextAll("div").toggleClass("hide show");saveTreeState(this)');
+
+        // var folderId = $btn.attr('data-folderId');
+        // console.log("folder: ", folderId);
 
         $childrenDiv.append($btn)
         var $span = $('<span></span>');
         $span.attr('contenteditable',true);
-        $span.text('自定义');
+        $span.attr('onfocusout','saveTitle(this)');
+        $span.attr('onfocusin','savaHistory(this)');
+        if(tree){
+            $span.text(tree.name);
+        }else{
+            $span.text('自定义');
+        }
 
         $childrenDiv.append($span);
         $childrenDiv.append(dropdown);
         $div.append($childrenDiv);
         ele.append($div)
+        if(!tree){
+            var jsons = {};
+    		jsons["name"] = $span.text();
+    		jsons["owner"] = ownerId;
+            jsons["parent_folderId"] = parent_folderId;
+            jsons["folderId"] = "";
+            jsons["collectionId"] = collectionId;
 
-        var jsons = {};
-		jsons["name"] = $span.text();
-        jsons["folder"] = folderId;
-        jsons["collectionId"] = collectionId;
+    		console.log("jsons: ", JSON.stringify(jsons));
 
-		console.log("jsons: ", JSON.stringify(jsons));
-
-		$.post('/save_new_folder/', {'jsons': JSON.stringify(jsons)}, function(res){
-			// responsedata.val(res);
-            // toastr.success("保存成功");
-            // ShowMsg(res,dom);
-            $btn.attr('data-folderId',res);
-		});
+    		$.post('/save_new_folder/', {'jsons': JSON.stringify(jsons)}, function(res){
+    			// responsedata.val(res);
+                // toastr.success("ok");
+                // ShowMsg(res,dom);
+                $btn.attr('data-folderId', res);
+    		});
+        }
+        return $div;
     }
 
     let fun_send = btn_send;
 
-    function add_item(container, box){
+    function add_new_item(container, box){
        var $panel_clone = $('#panel-box>:first').clone(true);
         $panel_clone.show();
 
@@ -286,8 +271,8 @@
         var method = $panel_clone.find(".rec_option").text();
         var name = $panel_clone.find('.panel-heading').text();
 
-        console.log("add_item, collectionId:", collectionId);
-        console.log("add_item, folderId: ", folderId);
+        console.log("add_new_item, collectionId:", collectionId);
+        console.log("add_new_item, folderId: ", folderId);
 
         $panel_clone.find('#collectionId').val(collectionId);
         $panel_clone.find('#folderId').val(folderId);
@@ -311,16 +296,80 @@
 
 		$.post('/save_new_item/', {'jsons': JSON.stringify(jsons)}, function(res){
 			// responsedata.val(res);
-            // toastr.success("保存成功");
+            // toastr.success("ok");
             // ShowMsg(res,dom);
 		});
 
     }
 
+    let historyTitle = ''
+    function savaHistory(ele){
+        historyTitle = $(ele).text();
+    }
+    function saveTitle(ele){
+        let id;
+        let is_folder;
+        let title = $(ele).text();
+        console.log(title)
+        if($(ele).prev().attr('data-folderId')){
+            id = $(ele).prev().attr('data-folderId');
+            is_folder = "1";
+        }
+        else{
+            id = $(ele).closest('.panel').find('#itemId').val();
+            is_folder = "0";
+        }
+        console.log('historyTitle',historyTitle)
+        if(historyTitle!=title){
+            console.log('is_folder: ', is_folder);
+            console.log('title: ', title);
+            console.log('id: ', id);
+            $.post('/save_tree_title/', {'is_folder': is_folder, "item_id": id, "title": title}, function(res){
+            // responsedata.val(res);
+            // toastr.success("ok");
+            // ShowMsg(res,dom);
+        });
 
-    function btn_add(container, box, item){
+        }
+
+    }
+
+    function saveTreeState(ele){
+        // $btn.attr('data-folderId', tree.folderId);
+
+        // let $panel = $(ele).closest('.panel');
+        // let itemId = $panel.find(".itemId").val();
+        // let folderId = $panel.find(".folderId").val();
+        let id;
+        let is_folder;
+        let expand;
+        if($(ele).attr('data-folderId')){
+            id = $(ele).attr('data-folderId');
+            is_folder = "1";
+        }
+        else{
+            id = $(ele).closest('.panel').find('#itemId').val();
+            is_folder = "0";
+        }
+
+        if($(ele).hasClass('glyphicon-plus')){
+            expand = "0";
+        }
+        else{
+            expand = "1";
+        }
+
+        $.post('/save_tree_state/', {'is_folder': is_folder, "id": id, "expand": expand}, function(res){
+            // responsedata.val(res);
+            // toastr.success("ok");
+            // ShowMsg(res,dom);
+        });
+
+
+    }
+
+    function BuildHtmlItem(container, box, item){
        var $panel_clone = $('#panel-box>:first').clone(true);
-        $panel_clone.show();
 
         console.log("item: ", item);
 
@@ -331,8 +380,13 @@
             $panel_clone.find('#folderId').val(item.folder);
             $panel_clone.find('#collectionId').val(item.collectionId);
             $panel_clone.find('#inputurl').val(item.url);
-            $panel_clone.find(".collapse").collapse('show').find('#rawModeData').val(item.rawModeData);
+            if(item.method=='POST'){
+                $panel_clone.find(".collapse").addClass('show').removeClass('hide').find('#rawModeData').val(item.rawModeData);
+            }else{
+                $panel_clone.find(".collapse").addClass('hide').removeClass('show')
+            }
         }
+        
 
         $panel_clone.find('#inputurl').next().unbind('click');
         $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送')
@@ -342,7 +396,16 @@
 		else{
         	container.append($panel_clone);
 		}
-        // ele.append($panel_clone);
+        if(item.expand=='0'){
+            console.log('shousuo',item.expand)
+            // $panel_clone.children('.panel-heading').children().eq(0).addClass('glyphicon-plus').removeClass('glyphicon-minus');
+            $panel_clone.children('.panel-body').removeClass('show').addClass('hide');
+        }else{
+            console.log('zhankai',item.expand)
+            $panel_clone.children('.panel-heading').children().eq(0).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            $panel_clone.children('.panel-body').removeClass('hide').addClass('show');
+        }
+        container.append($panel_clone);
         // rawModeDataCtl.height(rawModeDataCtl[0].scrollHeight);
     }
 
@@ -369,31 +432,35 @@
 		var $this = $(dom);
         console.log($this.text())
 		var $p5 = $this.parent().parent().parent().parent().parent();
+       
 		var method = $p5.find(".rec_option").text();
 		var url = $p5.find(".inputurl").val();
 		var id = $p5.find(".itemId").val();
 		console.log("btn_send: id: ", id);
 		var rawModeData = $p5.find(".rawModeData").val();
 		var responsedata = $p5.find(".myResponse");
-		$.post('/send/', {'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
-			responsedata.val(res);
-			responsedata.height(responsedata[0].scrollHeight);
-		});
+        responsedata.val("");
+        responsedata.height(responsedata[0].scrollHeight);
+        setTimeout(function(){
+    		$.post('/send/', {'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
+    			responsedata.val(res);
+    			responsedata.height(responsedata[0].scrollHeight);
+    		});  
+        },200);
 	}
 
     // 发送get或post数据，传入底层统一用get
 	function btn_save(dom) {
 		var $this = $(dom);
         console.log($this.text())
-		var $p5 = $this.parent().parent().parent().parent().parent();
+		var $p5 = $this.closest('.panel');
+        console.log("$p5: ", $p5);
 		var method = $p5.find(".rec_option").text();
 		var url = $p5.find(".inputurl").val();
 		var itemId = $p5.find(".itemId").val();
         var folderId = $p5.find(".folderId").val();
         var collectionId = $p5.find(".collectionId").val();
-		var $p6 = $this.parent().parent().parent().parent().parent().parent();
-		console.log("p6: ", $p6);
-		var name = $p6.find('.panel-heading').text();
+		var name = $p5.children('.panel-heading').children('[contenteditable]').text();
 
         name = name.replace(/[\t]/g,"");//去掉tab
         name = name.replace(/[\r]/g,"");//去掉回车换行
@@ -416,9 +483,9 @@
 		console.log("jsons: ", JSON.stringify(jsons));
 
 		var responsedata = $p5.find(".myResponse");
-		$.post('/save/', {'jsons': JSON.stringify(jsons)}, function(res){
+		$.post('/save_change_item/', {'jsons': JSON.stringify(jsons)}, function(res){
 			// responsedata.val(res);
-            // toastr.success("保存成功");
+            // toastr.success("ok");
             ShowMsg(res,dom);
 		});
 	}
@@ -432,6 +499,7 @@
 	$(".selectBox").click(function(e){
         var tagName = e.target.tagName;
     	var $this = $(e.target);
+        console.log($this)
     	if(tagName == 'A') {
     		// 根据选择重写菜单栏
     		e.preventDefault();
@@ -442,15 +510,11 @@
     		// 根据选择的是否为POST决定是否显示PostData输入项
     		var myparent = $(this).closest('.mypanel');
     		if($this.text() == "GET") {
-                myparent.children('.panel-heading').html('此处GET自定义标题');
-                myparent.find('#inputurl').val('此处GET自定义url')
-    			myparent.find(".collapse").collapse('hide');
-    		}
-    		else {
-                myparent.children('.panel-heading').html('此处POST自定义标题');
-                myparent.find('#inputurl').val('此处POST自定义url')
-    			myparent.find(".collapse").collapse('show').find('#rawModeData').text('post发送时预先加载的数据');
-    		}
+                myparent.find(".collapse").addClass('hide').removeClass('show');
+            }
+            else {
+                myparent.find(".collapse").addClass('show').removeClass('hide')
+            }
     	}
     });
 
