@@ -17,6 +17,9 @@
     .mypanel{position: relative;display: none;}
     .opr-btn{position: absolute;right: 200px;}
     .navbar-btn{margin-top:2px;margin-bottom:8px;}
+    .dropdown li,.dropdown a{
+        cursor:pointer;
+    }
 </style>
 <body>
 
@@ -24,7 +27,7 @@
     <div id="panel-box" style="">
         <div class="panel panel-default mypanel" style="margin:10px 30px;">
     	<div class="panel-heading" style="background: #fff">
-    			<span class="btn btn-xs glyphicon glyphicon-plus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide')"></span><span contenteditable='true'>标题</span>
+    			<span class="btn btn-xs glyphicon glyphicon-plus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide show');saveTreeState(this)"></span><span contenteditable='true'>标题</span>
                 <div class="dropdown pull-right" style="display: inline-block;margin-top:-5px">
                     <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-th-list"></span>
@@ -40,7 +43,7 @@
                     </ul>
                 </div>
     	</div>
-    	<div class="panel-body hide" style="padding-top:1px;">
+    	<div class="panel-body" style="padding-top:1px;">
     		<nav class="navbar navbar-default" >
     			<div class="container-fluid" style="padding-left:0px;padding-bottom:0px;">
     		        <div class="navbar-form navbar-left" style="padding-left: 0px;">
@@ -91,6 +94,9 @@
 
         tree["collectionId"] = collectionId;
         tree["name"] = folder_dict["name"];
+        tree["expand"] = folder_dict["expand"];
+        if(!folder_dict["expand"])
+            tree["expand"] = "0";
 
         tree["owner"] = owner;
         tree["folderId"] = folder_dict["id"]
@@ -156,9 +162,14 @@
                 BuildHtmlTree(tree.folders[m],$div)
             }
         }
-        let $childrenDiv = $div.find("div:first-child")
-		$childrenDiv.nextAll("div").addClass("hide");
-
+        console.log($div)
+        let $childrenDiv = $div.children("div:first-child")
+        console.log($childrenDiv)
+        if(tree.expand=="0"){
+            $childrenDiv.nextAll('div').addClass('hide')
+        }else{
+            $childrenDiv.nextAll('div').addClass('show')
+        }
     }
     function add_folder(ele,tree){
         var dropdown = `<div class="dropdown pull-right" style="display: inline-block;">
@@ -196,6 +207,13 @@
         $childrenDiv.attr('style','margin:0');
 
         var $btn = $('<span></span>');
+        if(tree.expand=="0"){
+            console.log('folder shousuo',tree.expand)
+            $btn.attr('class','btn glyphicon glyphicon-plus')
+        }else{
+            console.log('folder zhankai',tree.expand)
+            $btn.attr('class','btn glyphicon glyphicon-minus')
+        }
         if(tree){
             $btn.attr('data-ownerId', tree.owner);
             $btn.attr('data-folderId', tree.folderId);
@@ -205,8 +223,7 @@
             $btn.attr('data-collectionId', collectionId );
         }
 
-        $btn.attr('class','btn glyphicon glyphicon-plus')
-        $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").parent().nextAll("div").toggleClass("hide")');
+        $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").parent().nextAll("div").toggleClass("hide show");saveTreeState(this)');
 
         // var folderId = $btn.attr('data-folderId');
         // console.log("folder: ", folderId);
@@ -285,11 +302,42 @@
 		});
 
     }
+    function saveTreeState(ele){
+        // $btn.attr('data-folderId', tree.folderId);
 
+        // let $panel = $(ele).closest('.panel');
+        // let itemId = $panel.find(".itemId").val();
+        // let folderId = $panel.find(".folderId").val();
+        let id;
+        let is_folder;
+        let expand;
+        if($(ele).attr('data-folderId')){
+            id = $(ele).attr('data-folderId');
+            is_folder = "1";
+        }
+        else{
+            id = $(ele).closest('.panel').find('#itemId').val();
+            is_folder = "0";
+        }
+
+        if($(ele).hasClass('glyphicon-plus')){
+            expand = "0";
+        }
+        else{
+            expand = "1";
+        }
+
+        $.post('/save_tree_state/', {'is_folder': is_folder, "id": id, "expand": expand}, function(res){
+            // responsedata.val(res);
+            // toastr.success("ok");
+            // ShowMsg(res,dom);
+        });
+
+
+    }
 
     function BuildHtmlItem(container, box, item){
        var $panel_clone = $('#panel-box>:first').clone(true);
-        $panel_clone.show();
 
         console.log("item: ", item);
 
@@ -306,6 +354,7 @@
                 $panel_clone.find(".collapse").addClass('hide').removeClass('show')
             }
         }
+        
 
         $panel_clone.find('#inputurl').next().unbind('click');
         $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送')
@@ -315,7 +364,16 @@
 		else{
         	container.append($panel_clone);
 		}
-        // ele.append($panel_clone);
+        if(item.expand=='0'){
+            console.log('shousuo',item.expand)
+            // $panel_clone.children('.panel-heading').children().eq(0).addClass('glyphicon-plus').removeClass('glyphicon-minus');
+            $panel_clone.children('.panel-body').removeClass('show').addClass('hide');
+        }else{
+            console.log('zhankai',item.expand)
+            $panel_clone.children('.panel-heading').children().eq(0).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            $panel_clone.children('.panel-body').removeClass('hide').addClass('show');
+        }
+        container.append($panel_clone);
         // rawModeDataCtl.height(rawModeDataCtl[0].scrollHeight);
     }
 
@@ -342,16 +400,21 @@
 		var $this = $(dom);
         console.log($this.text())
 		var $p5 = $this.parent().parent().parent().parent().parent();
+       
 		var method = $p5.find(".rec_option").text();
 		var url = $p5.find(".inputurl").val();
 		var id = $p5.find(".itemId").val();
 		console.log("btn_send: id: ", id);
 		var rawModeData = $p5.find(".rawModeData").val();
 		var responsedata = $p5.find(".myResponse");
-		$.post('/send/', {'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
-			responsedata.val(res);
-			responsedata.height(responsedata[0].scrollHeight);
-		});
+        responsedata.val("");
+        responsedata.height(responsedata[0].scrollHeight);
+        setTimeout(function(){
+    		$.post('/send/', {'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
+    			responsedata.val(res);
+    			responsedata.height(responsedata[0].scrollHeight);
+    		});  
+        },200);
 	}
 
     // 发送get或post数据，传入底层统一用get
