@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^save_new_folder/$', game_views.save_new_folder, name='save_new_folder'),
     url(r'^save_change_folder/$', game_views.save_change_folder, name='save_change_folder'),
     url(r'^save_tree_state/$', game_views.save_tree_state, name='save_tree_state'),
+    url(r'^save_tree_title/$', game_views.save_tree_title, name='save_tree_title'),
     url(r'^admin/', admin.site.urls),
 ]

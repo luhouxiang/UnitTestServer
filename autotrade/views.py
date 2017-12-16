@@ -239,3 +239,34 @@ def save_tree_state(request):
         JsonConf.store(settings.INIT_DATA)
     return HttpResponse("保存成功.")
 
+
+def save_tree_title(request):
+    """
+    数据树标题
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        # web = WebJson()
+        is_folder = request.POST.get('is_folder')
+        item_id = request.POST.get('item_id')
+        name = request.POST.get('title')
+
+        if is_folder == "1":
+            folder_list = JsonConf.json_data['folders']
+            if JsonConf.json_data['id'] == item_id:
+                JsonConf.json_data["name"] = name
+            else:
+                for item in folder_list:
+                    if item["id"] == item_id:
+                        item["name"] = name
+                        break
+        else:
+            request_list = JsonConf.json_data['requests']
+            for item in request_list:
+                if item["id"] == item_id:
+                    item["name"] = name
+                    break
+        JsonConf.store(settings.INIT_DATA)
+    return HttpResponse("保存成功.")
+

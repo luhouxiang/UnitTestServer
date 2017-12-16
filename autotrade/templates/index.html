@@ -27,7 +27,7 @@
     <div id="panel-box" style="">
         <div class="panel panel-default mypanel" style="margin:10px 30px;">
     	<div class="panel-heading" style="background: #fff">
-    			<span class="btn btn-xs glyphicon glyphicon-plus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide show');saveTreeState(this)"></span><span contenteditable='true'>标题</span>
+    			<span class="btn btn-xs glyphicon glyphicon-plus" onclick="$(this).toggleClass('glyphicon-plus glyphicon-minus').parent().next().toggleClass('hide show');saveTreeState(this)"></span><span contenteditable='true' onfocusin="savaHistory(this)" onfocusout="saveTitle(this)">标题</span>
                 <div class="dropdown pull-right" style="display: inline-block;margin-top:-5px">
                     <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-th-list"></span>
@@ -185,9 +185,6 @@
                                 <a role="menuitem" tabindex="-1" href="#">add child item</a>
                             </li>
                             <li role="presentation" class="divider"></li>
-                            <li role="presentation" onclick="btn_save()" tabindex="-1" href="#">
-                                <a role="menuitem">save</a>
-                            </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation" onclick="btn_sub(this)">
                                 <a role="menuitem" tabindex="-1" href="#">delete</a>
@@ -231,6 +228,8 @@
         $childrenDiv.append($btn)
         var $span = $('<span></span>');
         $span.attr('contenteditable',true);
+        $span.attr('onfocusout','saveTitle(this)');
+        $span.attr('onfocusin','savaHistory(this)');
         if(tree){
             $span.text(tree.name);
         }else{
@@ -302,6 +301,39 @@
 		});
 
     }
+
+    let historyTitle = ''
+    function savaHistory(ele){
+        historyTitle = $(ele).text();
+    }
+    function saveTitle(ele){
+        let id;
+        let is_folder;
+        let title = $(ele).text();
+        console.log(title)
+        if($(ele).prev().attr('data-folderId')){
+            id = $(ele).prev().attr('data-folderId');
+            is_folder = "1";
+        }
+        else{
+            id = $(ele).closest('.panel').find('#itemId').val();
+            is_folder = "0";
+        }
+        console.log('historyTitle',historyTitle)
+        if(historyTitle!=title){
+            console.log('is_folder: ', is_folder);
+            console.log('title: ', title);
+            console.log('id: ', id);
+            $.post('/save_tree_title/', {'is_folder': is_folder, "item_id": id, "title": title}, function(res){
+            // responsedata.val(res);
+            // toastr.success("ok");
+            // ShowMsg(res,dom);
+        });
+
+        }
+
+    }
+
     function saveTreeState(ele){
         // $btn.attr('data-folderId', tree.folderId);
 
