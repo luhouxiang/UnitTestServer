@@ -33,11 +33,11 @@
                         <span class="glyphicon glyphicon-th-list"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation" onclick="btn_save(this)" tabindex="-1" href="#">
+                        <li role="presentation" onclick="btn_save_change_item(this)" tabindex="-1" href="#">
                             <a role="menuitem">保存项目</a>
                         </li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation" onclick="btn_sub(this)">
+                        <li role="presentation" onclick="btn_delete_item(this)">
                             <a role="menuitem" tabindex="-1" href="#">删除项目</a>
                         </li>
                     </ul>
@@ -146,7 +146,7 @@
 	})();
 
     function BuildHtmlTree(tree,ele){
-        let $div = add_folder(ele,tree)
+        let $div = add_new_folder(ele,tree)
         if(tree.item){
             for(var j=0;j<tree.item.length;j++){
                 var name = tree.item[j].name;
@@ -171,23 +171,102 @@
             $childrenDiv.nextAll('div').addClass('show')
         }
     }
-    function add_folder(ele,tree){
+
+    function BuildHtmlItem(container, box, item){
+       var $panel_clone = $('#panel-box>:first').clone(true);
+
+        console.log("item: ", item);
+
+        if(item != null) {
+            $panel_clone.children('.panel-heading').children().eq(1).text(item.name)
+            $panel_clone.find('.rec_option').text(item.method);
+            $panel_clone.find('#itemId').val(item.id);
+            $panel_clone.find('#folderId').val(item.folder);
+            $panel_clone.find('#collectionId').val(item.collectionId);
+            $panel_clone.find('#inputurl').val(item.url);
+            if(item.method=='POST'){
+                $panel_clone.find(".collapse").addClass('show').removeClass('hide').find('#rawModeData').val(item.rawModeData);
+            }else{
+                $panel_clone.find(".collapse").addClass('hide').removeClass('show')
+            }
+        }
+        
+
+        $panel_clone.find('#inputurl').next().unbind('click');
+        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送')
+		if(box){
+			box.after($panel_clone);
+		}
+		else{
+        	container.append($panel_clone);
+		}
+        if(item.expand=='0'){
+            console.log('shousuo',item.expand)
+            // $panel_clone.children('.panel-heading').children().eq(0).addClass('glyphicon-plus').removeClass('glyphicon-minus');
+            $panel_clone.children('.panel-body').removeClass('show').addClass('hide');
+        }else{
+            console.log('zhankai',item.expand)
+            $panel_clone.children('.panel-heading').children().eq(0).removeClass('glyphicon-plus').addClass('glyphicon-minus');
+            $panel_clone.children('.panel-body').removeClass('hide').addClass('show');
+        }
+        container.append($panel_clone);
+        // rawModeDataCtl.height(rawModeDataCtl[0].scrollHeight);
+    }
+
+    function ShowTip(tip,ele, type) {
+        var $tip = $('#tip');
+        if ($tip.length == 0) {
+            $tip = $('<strong id="tip" style="position:absolute;top:50px;left: 50%;z-index:9999"></strong>');
+            $('body').append($tip);
+        }
+        $tip.stop(true).prop('class', 'alert alert-' + type).text(tip).css({'left': $(ele).offset().left+$(ele).width(),'top':$(ele).offset().top-$(ele).height()*3}).fadeIn(500).delay(2000).fadeOut(500);
+    }
+
+    function ShowMsg(msg,ele) {
+        ShowTip(msg,ele, 'info');
+    }
+
+
+    let fun_send = btn_send;
+	// 发送get或post数据，传入底层统一用get
+	function btn_send(dom) {
+		var $this = $(dom);
+        console.log($this.text())
+		var $p5 = $this.parent().parent().parent().parent().parent();
+       
+		var method = $p5.find(".rec_option").text();
+		var url = $p5.find(".inputurl").val();
+		var id = $p5.find(".itemId").val();
+		console.log("btn_send: id: ", id);
+		var rawModeData = $p5.find(".rawModeData").val();
+		var responsedata = $p5.find(".myResponse");
+        responsedata.val("");
+        responsedata.height(responsedata[0].scrollHeight);
+        setTimeout(function(){
+    		$.post('/send/', {'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
+    			responsedata.val(res);
+    			responsedata.height(responsedata[0].scrollHeight);
+    		});  
+        },200);
+	}
+
+ function add_new_folder(ele,tree){
         var dropdown = `<div class="dropdown pull-right" style="display: inline-block;">
                         <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-th-list"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation" onclick="show($(this));add_folder($(this).parent().parent().parent().parent())" tabindex="-1" href="#">
-                                <a role="menuitem">add child folder</a>
+                            <li role="presentation" onclick="show($(this));add_new_folder($(this).parent().parent().parent().parent())" tabindex="-1" href="#">
+                                <a role="menuitem">添加子文件夹</a>
                             </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation" onclick="show($(this));add_new_item($(this).parent().parent().parent().parent())">
-                                <a role="menuitem" tabindex="-1" href="#">add child item</a>
+                                <a role="menuitem" tabindex="-1" href="#">添加子项目</a>
                             </li>
                             <li role="presentation" class="divider"></li>
                             <li role="presentation" class="divider"></li>
-                            <li role="presentation" onclick="btn_sub(this)">
-                                <a role="menuitem" tabindex="-1" href="#">delete</a>
+                            <li role="presentation" onclick="btn_delete_folder(this)">
+                                <a role="menuitem" tabindex="-1" href="#">删除文件夹</a>
                             </li>
                         </ul>
                     </div>`
@@ -204,20 +283,22 @@
         $childrenDiv.attr('style','margin:0');
 
         var $btn = $('<span></span>');
-        if(tree.expand=="0"){
-            console.log('folder shousuo',tree.expand)
-            $btn.attr('class','btn glyphicon glyphicon-plus')
-        }else{
-            console.log('folder zhankai',tree.expand)
-            $btn.attr('class','btn glyphicon glyphicon-minus')
-        }
+
         if(tree){
             $btn.attr('data-ownerId', tree.owner);
             $btn.attr('data-folderId', tree.folderId);
             $btn.attr('data-collectionId', tree.collectionId);
+            if(tree.expand=="0"){
+                console.log('folder shousuo',tree.expand)
+                $btn.attr('class','btn glyphicon glyphicon-plus')
+            }else{
+                console.log('folder zhankai',tree.expand)
+                $btn.attr('class','btn glyphicon glyphicon-minus')
+            }
         }else{
             $btn.attr('data-ownerId', ownerId);
             $btn.attr('data-collectionId', collectionId );
+            $btn.attr('class','btn glyphicon glyphicon-plus')
         }
 
         $btn.attr('onclick','$(this).toggleClass("glyphicon-plus glyphicon-minus").parent().nextAll("div").toggleClass("hide show");saveTreeState(this)');
@@ -242,26 +323,25 @@
         ele.append($div)
         if(!tree){
             var jsons = {};
-    		jsons["name"] = $span.text();
-    		jsons["owner"] = ownerId;
+            jsons["name"] = $span.text();
+            jsons["owner"] = ownerId;
             jsons["parent_folderId"] = parent_folderId;
             jsons["folderId"] = "";
             jsons["collectionId"] = collectionId;
 
-    		console.log("jsons: ", JSON.stringify(jsons));
+            console.log("jsons: ", JSON.stringify(jsons));
 
-    		$.post('/save_new_folder/', {'jsons': JSON.stringify(jsons)}, function(res){
-    			// responsedata.val(res);
+            $.post('/save_new_folder/', {'jsons': JSON.stringify(jsons)}, function(res){
+                // responsedata.val(res);
                 // toastr.success("ok");
                 // ShowMsg(res,dom);
                 $btn.attr('data-folderId', res);
-    		});
+            });
         }
         return $div;
     }
 
-    let fun_send = btn_send;
-
+    
     function add_new_item(container, box){
        var $panel_clone = $('#panel-box>:first').clone(true);
         $panel_clone.show();
@@ -269,7 +349,7 @@
         var collectionId = container.find("[data-collectionId]").attr('data-collectionId');
         var folderId = container.find("[data-folderId]").attr('data-folderId');
         var method = $panel_clone.find(".rec_option").text();
-        var name = $panel_clone.find('.panel-heading').text();
+        var name = $panel_clone.find('.panel-heading').children('[contenteditable]').text();
 
         console.log("add_new_item, collectionId:", collectionId);
         console.log("add_new_item, folderId: ", folderId);
@@ -287,18 +367,18 @@
         }
 
         var jsons = {};
-		jsons["name"] = name;
-		jsons["method"] = method;
+        jsons["name"] = name;
+        jsons["method"] = method;
         jsons["folder"] = folderId;
         jsons["collectionId"] = collectionId;
 
-		console.log("jsons: ", JSON.stringify(jsons));
+        console.log("jsons: ", JSON.stringify(jsons));
 
-		$.post('/save_new_item/', {'jsons': JSON.stringify(jsons)}, function(res){
-			// responsedata.val(res);
+        $.post('/save_new_item/', {'jsons': JSON.stringify(jsons)}, function(res){
+            // responsedata.val(res);
             // toastr.success("ok");
             // ShowMsg(res,dom);
-		});
+        });
 
     }
 
@@ -364,93 +444,10 @@
             // toastr.success("ok");
             // ShowMsg(res,dom);
         });
-
-
     }
-
-    function BuildHtmlItem(container, box, item){
-       var $panel_clone = $('#panel-box>:first').clone(true);
-
-        console.log("item: ", item);
-
-        if(item != null) {
-            $panel_clone.children('.panel-heading').children().eq(1).text(item.name)
-            $panel_clone.find('.rec_option').text(item.method);
-            $panel_clone.find('#itemId').val(item.id);
-            $panel_clone.find('#folderId').val(item.folder);
-            $panel_clone.find('#collectionId').val(item.collectionId);
-            $panel_clone.find('#inputurl').val(item.url);
-            if(item.method=='POST'){
-                $panel_clone.find(".collapse").addClass('show').removeClass('hide').find('#rawModeData').val(item.rawModeData);
-            }else{
-                $panel_clone.find(".collapse").addClass('hide').removeClass('show')
-            }
-        }
-        
-
-        $panel_clone.find('#inputurl').next().unbind('click');
-        $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送')
-		if(box){
-			box.after($panel_clone);
-		}
-		else{
-        	container.append($panel_clone);
-		}
-        if(item.expand=='0'){
-            console.log('shousuo',item.expand)
-            // $panel_clone.children('.panel-heading').children().eq(0).addClass('glyphicon-plus').removeClass('glyphicon-minus');
-            $panel_clone.children('.panel-body').removeClass('show').addClass('hide');
-        }else{
-            console.log('zhankai',item.expand)
-            $panel_clone.children('.panel-heading').children().eq(0).removeClass('glyphicon-plus').addClass('glyphicon-minus');
-            $panel_clone.children('.panel-body').removeClass('hide').addClass('show');
-        }
-        container.append($panel_clone);
-        // rawModeDataCtl.height(rawModeDataCtl[0].scrollHeight);
-    }
-
-	/*删除当前panel*/
-	function btn_sub(dom){
-	   $(dom).closest('.panel').remove();
-	}
-    function ShowTip(tip,ele, type) {
-        var $tip = $('#tip');
-        if ($tip.length == 0) {
-            $tip = $('<strong id="tip" style="position:absolute;top:50px;left: 50%;z-index:9999"></strong>');
-            $('body').append($tip);
-        }
-        $tip.stop(true).prop('class', 'alert alert-' + type).text(tip).css({'left': $(ele).offset().left+$(ele).width(),'top':$(ele).offset().top-$(ele).height()*3}).fadeIn(500).delay(2000).fadeOut(500);
-    }
-
-    function ShowMsg(msg,ele) {
-        ShowTip(msg,ele, 'info');
-    }
-
-
-	// 发送get或post数据，传入底层统一用get
-	function btn_send(dom) {
-		var $this = $(dom);
-        console.log($this.text())
-		var $p5 = $this.parent().parent().parent().parent().parent();
-       
-		var method = $p5.find(".rec_option").text();
-		var url = $p5.find(".inputurl").val();
-		var id = $p5.find(".itemId").val();
-		console.log("btn_send: id: ", id);
-		var rawModeData = $p5.find(".rawModeData").val();
-		var responsedata = $p5.find(".myResponse");
-        responsedata.val("");
-        responsedata.height(responsedata[0].scrollHeight);
-        setTimeout(function(){
-    		$.post('/send/', {'id': id, 'url': url, 'method':method, 'rawModeData':rawModeData}, function(res){
-    			responsedata.val(res);
-    			responsedata.height(responsedata[0].scrollHeight);
-    		});  
-        },200);
-	}
 
     // 发送get或post数据，传入底层统一用get
-	function btn_save(dom) {
+	function btn_save_change_item(dom) {
 		var $this = $(dom);
         console.log($this.text())
 		var $p5 = $this.closest('.panel');
@@ -490,11 +487,38 @@
 		});
 	}
 
+
+    /*删除当前item*/
+    function btn_delete_item(dom){
+        
+        var $this = $(dom);
+        console.log($this.text())
+        var $p5 = $this.closest('.panel');
+        console.log("$p5: ", $p5);
+        var collectionId = $p5.find(".collectionId").val();
+        var folderId = $p5.find(".folderId").val();
+        var itemId = $p5.find(".itemId").val();
+        $.post('/delete_item/', {'itemId': itemId, 'folderId':folderId, 'collectionId':collectionId}, function(res){
+            $(dom).closest('.panel').remove();
+            // ShowMsg(res,dom);
+        });
+    }
+
+    /*删除当前folder*/
+    function btn_delete_folder(dom){
+        var folderId = $(dom).closest('.panel').find("[data-folderId]").attr('data-folderId');
+        // $(dom).closest('.panel').remove();
+        $.post('/delete_folder/', {'folderId': folderId}, function(res){
+            $(dom).closest('.panel').remove();
+            // ShowMsg(res,dom);
+        });
+    }
+
 	/*添加一个panel*/
     /*删除当前panel*/
-    function btn_sub(dom){
-       $(dom).parent().parent().remove();
-    }
+    //function btn_sub(dom){
+    //   $(dom).parent().parent().remove();
+    //}
 
 	$(".selectBox").click(function(e){
         var tagName = e.target.tagName;
