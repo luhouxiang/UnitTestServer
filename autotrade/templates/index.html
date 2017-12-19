@@ -264,7 +264,6 @@
                                 <a role="menuitem" tabindex="-1" href="#">添加子项目</a>
                             </li>
                             <li role="presentation" class="divider"></li>
-                            <li role="presentation" class="divider"></li>
                             <li role="presentation" onclick="btn_delete_folder(this)">
                                 <a role="menuitem" tabindex="-1" href="#">删除文件夹</a>
                             </li>
@@ -274,6 +273,14 @@
         var ownerId = ele.find("[data-ownerId]").attr("data-ownerId");
         var collectionId = ele.find("[data-collectionId]").attr('data-collectionId');
         var parent_folderId = ele.find("[data-folderId]").attr('data-folderId');
+
+        if(!collectionId) 
+            collectionId = tree.collectionId;
+        if(!parent_folderId)
+            parent_folderId = collectionId;
+        if(!ownerId)
+            ownerId = tree.ownerId;
+
         var $div = $('<div></div>');
         $div.attr('style','margin:5px 30px')
         $div.attr('class','panel panel-default')
@@ -295,7 +302,8 @@
                 console.log('folder zhankai',tree.expand)
                 $btn.attr('class','btn glyphicon glyphicon-minus')
             }
-        }else{
+        }
+        else{
             $btn.attr('data-ownerId', ownerId);
             $btn.attr('data-collectionId', collectionId );
             $btn.attr('class','btn glyphicon glyphicon-plus')
@@ -319,7 +327,17 @@
 
         $childrenDiv.append($span);
         $childrenDiv.append(dropdown);
+        console.log('collectionId: ',collectionId)
+        console.log('parent_folderId: ',parent_folderId)
+        if(tree && tree.collectionId == tree.folderId) {
+            $childrenDiv.find('li').eq(3).remove();
+            $childrenDiv.find('li').eq(3).remove();
+        }
+
         $div.append($childrenDiv);
+        if(!tree){
+            $div.addClass('show')
+        }
         ele.append($div)
         if(!tree){
             var jsons = {};
@@ -350,7 +368,8 @@
         var folderId = container.find("[data-folderId]").attr('data-folderId');
         var method = $panel_clone.find(".rec_option").text();
         var name = $panel_clone.find('.panel-heading').children('[contenteditable]').text();
-
+        $panel_clone.addClass('show')
+        $panel_clone.find('.panel-body').addClass('hide')
         console.log("add_new_item, collectionId:", collectionId);
         console.log("add_new_item, folderId: ", folderId);
 
