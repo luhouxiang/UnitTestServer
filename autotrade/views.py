@@ -50,22 +50,25 @@ def save_new_item(request):
     jsons = json.loads(str_data)
     name = jsons['name']
     method = jsons['method']
-    folder = jsons['folder']
+    folder_id = jsons['folder']
     collection_id = jsons['collectionId']
 
     item = Util.new_request_item()
-    item["folder"] = folder
+    item["folder"] = folder_id
     item["collectionId"] = collection_id
     item["method"] = method
     item["name"] = name
     request_list = JsonConf.json_data['requests']
     request_list.append(item)
 
-    folder_list = JsonConf.json_data['folders']
-    for fd in folder_list:
-        if fd["id"] == folder:
-            fd["order"].append(item["id"])
-            break
+    if collection_id == folder_id:
+        JsonConf.json_data["order"].append(item["id"])
+    else:
+        folder_list = JsonConf.json_data['folders']
+        for fd in folder_list:
+            if fd["id"] == folder_id:
+                fd["order"].append(item["id"])
+                break
     JsonConf.store(settings.INIT_DATA)
     return HttpResponse("保存成功.")
 
@@ -270,3 +273,90 @@ def save_tree_title(request):
         JsonConf.store(settings.INIT_DATA)
     return HttpResponse("保存成功.")
 
+
+def delete_item(request):
+    """
+    删除项目
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        item_id = request.POST.get('itemId')
+        folder_id = request.POST.get("folderId")
+        collection_id = request.POST.get("collectionId")
+        request_list = JsonConf.json_data['requests']
+        # 删除request_list中的具体项
+        for i, item in enumerate(request_list):
+            if item["id"] == item_id:
+                del request_list[i]
+                break
+
+        # 删除最顶端的Id
+        if folder_id == collection_id:
+            items = JsonConf.json_data["order"]
+            for i, item in enumerate(items):
+                if item == item_id:
+                    del items[i]
+        else:   # 删除对应文件夹中的Id
+            items1 = JsonConf.json_data["folders"]
+            for index1, item1 in enumerate(items1):
+                if folder_id == item1["id"]:
+                    items2 = item1["order"]
+                    for index2, item2 in enumerate(items2):
+                        if item2 == item_id:
+                            del items2[index2]
+        JsonConf.store(settings.INIT_DATA)
+    return HttpResponse("删除项目成功.")
+
+def collect_list(folder_id, folder_list, item_list):
+    folders = JsonConf.json_data['folders']
+    for fd in folders:
+        if folder_id == fd["id"]:
+            folder_list.append(folder_id)
+            item_list.extend(fd["order"])
+            for item in fd["folders_order"]:
+                collect_list(item, folder_list, item_list)
+
+def delete_folder(request):
+    """
+    删除项目
+    :param request:
+    :return:
+    """
+    if request.method != 'POST':
+        return HttpResponse("数据异常.")
+
+    folder_id = request.POST.get("folderId")
+    folder_list = []
+    item_list = []
+    collect_list(folder_id, folder_list, item_list)
+
+    data_list = JsonConf.json_data['folders_order']
+    for fd1 in reversed(folder_list):
+        for fd2 in reversed(data_list):
+            if fd1 == fd2:
+                folder_list.remove(fd1)
+                data_list.remove(fd2)
+
+    data_list = JsonConf.json_data['folders']
+    for fd1 in reversed(folder_list):
+        for fd2 in reversed(data_list):
+            if fd1 == fd2["id"]:
+                folder_list.remove(fd1)
+                data_list.remove(fd2)
+
+    data_list = JsonConf.json_data['order']
+    for it1 in reversed(item_list):
+        for it2 in reversed(data_list):
+            if it1 == it2:
+                item_list.remove(it1)
+                data_list.remove(it2)
+
+    data_list = JsonConf.json_data['requests']
+    for it1 in reversed(item_list):
+        for it2 in reversed(data_list):
+            if it1 == it2["id"]:
+                item_list.remove(it1)
+                data_list.remove(it2)
+    JsonConf.store(settings.INIT_DATA)
+    return HttpResponse("保存成功.")
