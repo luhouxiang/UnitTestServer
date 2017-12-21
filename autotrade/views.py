@@ -90,7 +90,7 @@ def save_change_item(request):
     url = jsons['url']
     raw_mode_data = jsons['rawModeData']
     method = jsons['method']
-    print("打印send: ", url)
+    logger.info("打印send: {}".format(url))
 
     request_list = JsonConf.json_data['requests']
 
