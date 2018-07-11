@@ -10,11 +10,13 @@ from django.conf import settings
 import json
 from user_logbook import user_log as logger
 
+
 def index(request):
     logger.info("index: 初始化文件：" + settings.INIT_DATA)
     print(settings.INIT_DATA)
     json_data = JsonConf.load(settings.INIT_DATA)
     return render(request, 'index.html', {'Dict': json.dumps(json_data)})
+
 
 def send(request):
     """
@@ -70,7 +72,7 @@ def save_new_item(request):
                 fd["order"].append(item["id"])
                 break
     JsonConf.store(settings.INIT_DATA)
-    return HttpResponse("保存成功.")
+    return HttpResponse(item["id"])
 
 def save_change_item(request):
     """
@@ -308,6 +310,7 @@ def delete_item(request):
         JsonConf.store(settings.INIT_DATA)
     return HttpResponse("删除项目成功.")
 
+
 def collect_list(folder_id, folder_list, item_list):
     folders = JsonConf.json_data['folders']
     for fd in folders:
@@ -316,6 +319,7 @@ def collect_list(folder_id, folder_list, item_list):
             item_list.extend(fd["order"])
             for item in fd["folders_order"]:
                 collect_list(item, folder_list, item_list)
+
 
 def delete_folder(request):
     """

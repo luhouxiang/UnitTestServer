@@ -344,7 +344,9 @@
                 // responsedata.val(res);
                 // toastr.success("ok");
                 // ShowMsg(res,dom);
-                $folderId.text(res);
+                console.log("save_new_folder ok:",res);
+                // $folderId.text(res);
+                ele.find('.data-folderId').text(res);
             });
         }
         return $div;
@@ -383,6 +385,9 @@
             // responsedata.val(res);
             // toastr.success("ok");
             // ShowMsg(res,dom);
+            console.log("add_new_item ok:",res);
+            $panel_clone.find('#itemId').val(res);
+            // $panel_clone.find('#folderId').val(folderId);
         });
 
     }
@@ -391,6 +396,7 @@
     function savaHistory(ele){
         historyTitle = $(ele).val();
     }
+
     function saveTitle(ele){
         let id;
         let is_folder;
@@ -408,7 +414,8 @@
             $.post('/save_tree_title/', {'is_folder': is_folder, "item_id": id, "title": title}, function(res){
             // responsedata.val(res);
             // toastr.success("ok");
-            // ShowMsg(res,dom);
+            //ShowMsg(res,dom);
+                console.log("save_tree_title ok:",res);
             });
         }
     }
@@ -475,7 +482,8 @@
 		$.post('/save_change_item/', {'jsons': JSON.stringify(jsons)}, function(res){
 			// responsedata.val(res);
             // toastr.success("ok");
-            ShowMsg(res,dom);
+            // ShowMsg(res,dom);
+
 		});
 	}
 
