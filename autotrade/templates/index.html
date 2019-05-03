@@ -20,10 +20,36 @@
     .dropdown li,.dropdown a{
         cursor:pointer;
     }
+    .dropdown-menu{
+        right: 0;
+        left:-100px;
+    }
 </style>
 <body>
 
 <div class="row">
+    <form class="form-inline" style="text-align: right;margin:5px 30px">
+        <div class="input-group hide" id="user">
+            <span class="input-group-addon">账号</span>
+            <input type="text" class="form-control" placeholder="请输入账号">
+        </div>
+        <div class="input-group hide" id="password">
+            <span class="input-group-addon ">密码</span>
+            <input type="password" class="form-control" placeholder="请输入密码">
+        </div>
+        <div id="loginBtn" class="btn" onclick="signin()">登录</div>
+        <div class="dropdown hide" style="display: inline-block;">
+            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
+                <span id="loginName"></span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation" onclick="signout()" tabindex="-1" href="#">
+                    <a role="menuitem">退出</a>
+                </li>
+            </ul>
+        </div>
+    </form>
     <div id="panel-box" style="">
         <div class="panel panel-default mypanel" style="margin:10px 30px;">
     	<div class="panel-heading" style="background: #fff">
@@ -102,6 +128,12 @@
         tree["order"] = folder_dict["order"];
         tree["folders"] = [];
         tree["item"] = [];
+        // 判断是否登录
+        if(window.sessionStorage.login){
+            $('#loginBtn').addClass('hide').next().removeClass('hide');
+        }
+        // 存储页面未导入tree时的初始状态
+        $panel_box = $('#panel-box').clone(true);
         for(var i = 0; i < folder_dict["folders_order"].length; i++) {
             for(var j = 0; j < folders.length; j++) {
                 if(folder_dict["folders_order"][i] == folders[j].id) {
@@ -112,7 +144,24 @@
             }
         }
     }
-
+    // 声明存储页面未导入tree时的初始状态的变量
+    var $panel_box;
+    function signin(){
+        $('#loginBtn').addClass('hide').next().removeClass('hide').find('#loginName').text($('#user').children('input').val());
+        $('#user').addClass('hide')
+        $('#password').addClass('hide')
+        window.sessionStorage.login = true;
+        //登录操作，登录成功后通过
+        // $('#panel-box').remove();清空页面
+        // $('.row').append($panel_box);页面初始化赋值
+        //BuildLogicItem(dict, folder["folders"][i]);重新调用此方法，用新的tree数据生成页面
+    }
+    function signout(){
+        window.sessionStorage.login = false;
+        $('#loginBtn').removeClass('hide').next().addClass('hide');
+        $('#user').removeClass('hide')
+        $('#password').removeClass('hide')
+    }
     function show(ele){
         if(ele.parent().parent().prev().prev().hasClass('glyphicon-plus')){
             ele.parent().parent().prev().prev().trigger('click');
@@ -276,8 +325,12 @@
                         </div>`
 
         var $div = $(folderEle);
-        ele.append($div); // console.log("add child folder...");
-        
+        if(tree){ // 初始化时按数据顺序加载
+            ele.append($div);
+        }else{
+            ele.children('div:first-child').after($div);
+        } // console.log("add child folder...");
+
         var $headingDiv = $div.children('.panel-heading');
         $headingDiv.append(dropdown);
         var $btn = $headingDiv.children('span:first-child');
@@ -366,12 +419,8 @@
         $panel_clone.find('#collectionId').val(collectionId);
         $panel_clone.find('#folderId').val(folderId);
         $panel_clone.find('#send_btn').attr('onclick',"fun_send(this)").text('发送');
-        if(box){
-            box.after($panel_clone);
-        }
-        else{
-            container.append($panel_clone);
-        }
+        
+        container.children('div:first-child').after($panel_clone); 
 
         var jsons = {};
         jsons["name"] = name;
